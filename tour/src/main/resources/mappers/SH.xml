@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SHDao">
+	<select id="SHGetConList" parameterType="Contents"
+		resultType="Contents">
+		select * from contents
+	</select>
+
+	<select id="SHTourList" resultType="Contents">
+		select * from contents where c_category='관광지'
+	</select>
+
+	<select id="SHHotelList" resultType="Contents">
+		select * from contents where c_category='숙소'
+	</select>
+
+	<select id="SHFoodList" resultType="Contents">
+		select * from contents where c_category='음식점'
+	</select>
+
+	<select id="SHBoardList" resultType="Board">
+		select * from board
+	</select>
+
+	<select id="SHLocalCon" parameterType="java.lang.String"
+		resultType="Contents">
+		select * from contents where c_local = #{c_local} and
+		ROWNUM= 1
+	</select>
+
+	<select id="SHLocalTourList" parameterType="java.lang.String"
+		resultType="Contents">
+		select * from contents where c_local = #{c_local} and
+		c_category='관광지'
+	</select>
+
+	<select id="SHLocalHotelList" parameterType="java.lang.String"
+		resultType="Contents">
+		select * from contents where c_local = #{c_local} and
+		c_category='숙소'
+	</select>
+
+	<select id="SHLocalFoodList" parameterType="java.lang.String"
+		resultType="Contents">
+		select * from contents where c_local = #{c_local} and
+		c_category='음식점'
+	</select>
+
+	<select id="SHDetailContent" parameterType="java.lang.String"
+		resultType="Contents">
+		select * from contents where c_no = #{c_no}
+	</select>
+
+	<select id="SHAllList" parameterType="java.lang.String"
+		resultType="Contents">
+		select * from contents where c_category = #{c_category}
+	</select>
+
+	<select id="SHCountAllList" parameterType="java.lang.String"
+		resultType="int">
+		select Count(*) from contents where c_category =
+		#{c_category}
+	</select>
+
+	<select id="SHLocalAllList" parameterType="Contents"
+		resultType="Contents">
+		select * from contents where c_category = #{c_category} and
+		c_local = #{c_local}
+	</select>
+
+	<select id="SHCountAllLocalList" parameterType="Contents"
+		resultType="int">
+		select Count(*) from contents where c_category =
+		#{c_category} and c_local = #{c_local}
+	</select>
+
+	<select id="SHCommandList" parameterType="java.lang.String"
+		resultType="Command">
+		select * from command where c_no = #{c_no} order by com_group desc ,com_Step asc
+	</select>
+
+	<insert id="SHWriteDetailCom" parameterType="Command">
+		insert into command
+		values(#{c_no},com_no_seq.nextval,#{m_id},#{com_contents},com_no_seq.currval,0,0)
+	</insert>
+
+	<delete id="SHDeleteCommand" parameterType="Command">
+		delete from command
+		where com_no = #{com_no} and m_id = #{m_id}
+	</delete>
+
+	<update id="SHUpdateCommand" parameterType="Command">
+		update command set
+		com_contents = #{com_contents} where com_no = #{com_no} and m_id =
+		#{m_id}
+	</update>
+
+	<select id="SHReplyProperty" parameterType="java.lang.String"
+		resultType="Command">
+		select * from command where com_no = #{com_no}
+	</select>
+
+	<insert id="SHwriteReply" parameterType="Command">
+		insert into command
+		values(#{c_no},com_no_seq.nextval,#{m_id},#{com_contents},#{com_Group},#{com_Step}+1,#{com_Indent}+1)
+	</insert>
+
+	<insert id="SHreplyShape" parameterType="Command">
+		update command set
+		com_step = com_step+1 where com_Group = #{com_Group} and com_step >
+		#{com_Step}
+	</insert>
+
+	<select id="SHCheckMember" parameterType="Contents_like"
+		resultType="int">
+		select count(*) from contents_like where c_no = #{c_no} and
+		m_id = #{m_id}
+	</select>
+
+	<select id="SHGetMemberLikeCnt" parameterType="Contents_like"
+		resultType="int">
+		select count(*) from contents_like where c_no = #{c_no} and
+		m_id = #{m_id} and c_like_cnt = 1
+	</select>
+
+	<select id="SHGetLikeCnt" parameterType="java.lang.String"
+		resultType="int">
+		select count(*) from contents_like where c_no = #{c_no} and
+		c_like_cnt = 1
+	</select>
+
+	<update id="SHUpdateLike" parameterType="Contents_like">
+		update contents_like set
+		c_like_cnt = 0 where c_no = #{c_no} and m_id = #{m_id}
+	</update>
+
+	<insert id="SHDetailLike" parameterType="Contents_like">
+		insert into
+		contents_like
+		values(#{c_no},#{m_id},1,0)
+	</insert>
+
+	<update id="SHUpdateInsertLike" parameterType="Contents_like">
+		update
+		contents_like set c_like_cnt = 1 where c_no = #{c_no} and m_id =
+		#{m_id}
+	</update>
+
+	<delete id="SHDeleteLike" parameterType="Contents_like">
+		delete from
+		contents_like where c_no = #{c_no} and m_id = #{m_id}
+	</delete>
+
+	<select id="SHGetCartCnt" parameterType="Contents_like"
+		resultType="int">
+		select count(*) from contents_like where c_no = #{c_no} and
+		m_id = #{m_id} and cart = 1
+	</select>
+
+	<insert id="SHGetCart" parameterType="Contents_like">
+		insert into contents_like
+		values(#{c_no},#{m_id},0,1)
+	</insert>
+
+	<update id="SHUpdateCart" parameterType="Contents_like">
+		update contents_like set
+		Cart = 1 where c_no = #{c_no} and m_id = #{m_id}
+	</update>
+
+	<update id="SHDeleteCart" parameterType="Contents_like">
+		update contents_like set
+		Cart = 0 where c_no = #{c_no} and m_id = #{m_id}
+	</update>
+
+	<insert id="SHUploadContents" parameterType="Contents">
+		insert into contents
+		values(c_no_seq.nextval,#{c_title},#{c_address},#{c_local},#{c_category},
+		#{c_description},#{c_zipcode},#{c_map_x},#{c_map_y},#{c_sigungu_code},#{c_image1},#{c_image2},#{c_image3})
+	</insert>
+
+	<delete id="SHDeleteContent" parameterType="java.lang.String">
+		delete from contents
+		where c_no = #{c_no}
+	</delete>
+
+	<update id="SHUpdateContent" parameterType="contents">
+		update contents
+		set c_title= #{c_title} , c_address = #{c_address}, c_local = #{c_local}
+		, c_category = #{c_category} ,c_description = #{c_description},
+		c_zipcode=#{c_zipcode} , c_map_x = #{c_map_x} , c_map_y = #{c_map_y} ,
+		c_sigungu_code=#{c_sigungu_code},
+		c_image1=#{c_image1}, c_image2=#{c_image2}, c_image3=#{c_image3} where c_no = #{c_no}
+	</update>
+
+	<select id="SHGetUpdateLocalList" resultType="contents">
+		select DISTINCT
+		c_local from contents
+	</select>
+
+	<select id="SHGetUpdateCategoryList" resultType="contents">
+		select distinct
+		c_category from contents
+	</select>
+
+	<select id="SHGetSearchList" parameterType="java.lang.String"
+		resultType="contents">
+		SELECT *
+		FROM contents
+		<if test="search != ''">
+			WHERE c_title LIKE '%' || #{search} || '%' or
+				  c_local Like '%' || #{search} || '%' or
+				  c_category like '%' || #{search} || '%'
+		</if>
+		order by c_no desc
+	</select>
+
+	<select id="SHGetCountSearchList" parameterType="java.lang.String" resultType="int">
+		select Count(*)
+		FROM contents
+		<if test="search != ''">
+			WHERE c_title LIKE '%' || #{search} || '%' or
+				  c_local Like '%' || #{search} || '%' or
+				  c_category like '%' || #{search} || '%'
+		</if>
+		order by c_no desc
+	</select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

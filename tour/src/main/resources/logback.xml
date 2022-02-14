@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration> <!-- 개발할 때 사용하고 개발 다 끝나면 지워도 됨 계속 콘솔창에 끄니 피곤할 것 -->
+<configuration>
+  <!-- name=어디서 출력할것이냐?, class=콘솔에서 출력할 것이다  -->
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender"> 
+    <encoder>
+      <pattern>%5level [%thread] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.oracle.tour.HJMapper"> <!-- 내가 쓰는 mapper에 있는 <mapper namespace="">와 같이 맞추기! -->
+    <level value="trace"/>
+  </logger>
+  <root level="error"> <!-- 에러가 나도 콘솔창에 출력해주겠다 -->
+    <appender-ref ref="stdout"/>
+  </root>
+
+</configuration>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.tour.dto">
+	<select id="WHLogin" parameterType="Member" resultType="Member">
+	select m_id,m_active_kind,m_kind
+    from member
+    where m_id=#{m_id} and m_password=#{m_password}
+    union 
+    select m_id,m_active_kind,m_kind
+    FROM
+    (select distinct 'noUser' as m_id,0 m_active_kind,0  m_kind
+        from member
+        where not exists(select m_id,m_active_kind,m_kind
+                         from member
+                        where m_id=#{m_id} and m_password=#{m_password})
+     ) m
+	</select>
+	<insert id="WHjoin" parameterType="Member">
+	insert into member(m_id,m_nickname,m_password,m_phone,m_email,m_birth,m_gender,m_date)
+	  values (#{m_id},#{m_nickname},#{m_password},#{m_phone1}||#{m_phone2}||#{m_phone3},#{m_email},#{m_birth},#{m_gender},sysdate)
+	</insert>
+	<select id="WHidCheck" parameterType="java.lang.String" resultType="int">
+	select count(*) 
+	from member 
+	where m_id=#{m_id}
+	</select>
+	<select id="WHmyInfo" parameterType="Member" resultType="Member">
+	select * 
+	from member
+	where m_id=#{m_id}
+	</select>
+	<update id="WHpwChange" parameterType="Member">
+	update member 
+	set m_password=#{m_password},m_active_kind=1
+	where m_id=#{m_id}
+	</update>
+	<update id="WHTpPw" parameterType="Member">
+	update member
+	set m_password=#{m_password},m_active_kind=2
+	where m_id=#{m_id} and m_email=#{m_email}
+	</update>
+	<select id="WHemailCheck" parameterType="Member" resultType="int">
+	select count(*)
+	from member
+	where m_id=#{m_id} and m_email=#{m_email}
+	</select>
+	<update id="WHInfoCh" parameterType="Member">
+	update member
+	set m_email =#{m_email},m_nickname=#{m_nickname},m_birth=#{m_birth},m_phone=#{m_phone},m_gender=#{m_gender}
+	where m_id=#{m_id}
+	</update>
+	<update id="WHMemberLv" parameterType="java.lang.String">
+	update member
+	set m_active_kind=3
+	where m_id=#{m_id}
+	</update>
+	<select id="WHCnoList" parameterType="java.lang.String" resultType="Contents_like_contents">
+	select a.c_no,a.c_title,a.c_image1,b.m_id
+	from contents a
+	left OUTER join contents_like b 
+	on a.c_no = b.c_no
+	where m_id=#{m_id} and cart=1
+	</select>
+	<select id="WHSearchList" parameterType="Contents_like_contents" resultType="Contents_like_contents">
+	 select a.c_no,a.c_title,a.c_image1,b.m_id,a.c_local,a.c_category
+	from contents a
+	left OUTER join contents_like b 
+	on a.c_no = b.c_no
+	where m_id=#{m_id} and cart=1 and c_title like  '%' ||  #{keyword} || '%'
+	</select>
+	<update id="WHlistDelete" parameterType="Contents_like_contents">
+	update contents_like
+	set cart =0
+	where m_id=#{m_id} and c_no=#{c_no}
+	</update>
+</mapper>

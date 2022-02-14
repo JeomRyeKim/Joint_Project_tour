@@ -1,0 +1,1341 @@
+/* 웹 폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic&family=Nanum+Gothic+Coding:wght@700&display=swap');
+
+
+/**font**/
+@font-face {
+    src: url("../font/NanumGothic.ttf");
+    font-family: "nanum";
+}
+
+@font-face {
+    src: url("../font/NanumGothicBold.ttf");
+    font-family: "nanumB";
+}
+
+
+/* 공통 */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+a {
+    text-decoration-line: none;
+    color: black;
+}
+
+.line--horizon {
+    background-color: #CDCECF;
+    border: 0;
+    height: 2px
+}
+
+
+/* 테이블 */
+table {
+    /*border: 1pt solid;*/
+    border-collapse: collapse;
+}
+
+/* 테이블 상단 */
+.list--header {
+    color: white;
+    background-color: #F78181;
+    font-family: 'Jua', sans-serif;
+    font-size: 18px;
+}
+
+.list--header > td {
+    padding: 5px 3px 3px;
+}
+
+/* 테이블 항목 */
+.list--item {
+    border-bottom: 1px #CDCECF solid;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 16px;
+}
+
+.list--item > td {
+    padding: 5px 3px 3px;
+}
+
+
+
+/* 버튼 - 부트스트랩 적용 안되게 */
+.button--exceptionboot {
+!important;
+    color: white;
+    background-color: #F78181;
+    font-family: 'Jua', sans-serif;
+    font-size: 19px;
+    border-radius: 6px;
+    border: none;
+    padding: 6px 8px 4px 8px;
+}
+
+/* 페이지 네이션 */
+.pagination {
+    display: inline-block;
+}
+
+.pagination td {
+    border: 1px #CDCECF solid;
+    font-family: 'Nanum Gothic Coding', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 4px 14px 4px 14px;
+}
+
+/* 캔버스 */
+#canvas {
+    margin-top: 20px;
+    border: 1px #CDCECF solid;
+}
+
+
+
+/*plan - planDetail */
+.planL-navbox__li--big, .planL-titlebox--span__big {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planL-header {
+    height: 150px;
+    background-color: #808080;
+}
+
+.planL-container {
+    width: 1300px;
+    margin: 0px auto;
+    overflow: auto;
+}
+
+
+.planL-navbox__a--blue:hover {
+    color: #000000;
+}
+
+
+.planL-navbox {
+    width: 250px;
+    height: 350px;
+    position:absolute;
+    top: auto;
+    display: inline-block;
+    margin: 70px auto;
+    background-color: #737373;
+}
+
+.planL-navbox__ul--blue {
+    list-style-type: none;
+    margin: 25px 0 0 22px;
+    padding: 0;
+    color: white;
+    width: 170px;
+    font-weight: 700;
+}
+
+
+.planL-navbox__li--big {
+    height: 56px;
+    font-size: 30px;
+    color: white;
+    border-bottom: 3px solid #ffffff;
+    line-height: 60px;
+}
+
+.planL-navbox__li--small {
+    margin: 30px 0 30px 6px;
+}
+
+.planL-navbox__a--blue {
+    font-size: 17px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planL-navbox__img--small {
+    width: 18px;
+    height: 18px;
+    vertical-align: sub;
+}
+
+.planL-planbox {
+    float: right;
+    width: 1000px;
+    margin: 70px 10px 70px 0px;
+}
+
+.planL-titlebox {
+    width: 100%;
+    height: 85px;
+    border-top: 3px solid #666666;
+    border-left: 3px solid #666666;
+    border-right: 3px solid #666666;
+}
+
+.planL-titlebox--span__big {
+    font-size: 34px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 23px 10px 0 26px;
+}
+
+.planL-titlebox--button__blue {
+    width: 150px;
+    height: 47px;
+    float: right;
+    margin: 20px 15px 0 0;
+    border: none;
+    border-radius: 6px;
+    background-color: #333333;
+    color: white;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 18px;
+    font-weight : bold;
+    cursor: pointer;
+}
+
+.planL-listbox {
+    border: 3px solid #666666;
+    width: 100%;
+    min-height: 400px;
+}
+
+.planL-detailbox {
+    width: 300px;
+    height: 250px;
+    border: 1px solid #cacdd1;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 20px 13px 10px 14px;
+    box-shadow: 1px 2px 5px #CDCECF;
+}
+
+.planL-detailmap {
+    width: 300px;
+    height: 175px;
+    cursor: pointer;
+    border-bottom: 3px solid #666666;
+}
+
+.planL-map {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.planL-detailinfo {
+    width: 100%;
+    height: 74px;
+    position: relative;
+}
+
+.planL-detailinfo__span--date {
+    font-size: 17px;
+    position: absolute;
+    top: 9px;
+    left: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planL-detailinfo__span--dday {
+    font-size: 14px;
+    font-weight: bolder;
+    position: absolute;
+    bottom: 17px;
+    left: 16px;
+    display: inline-block;
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.planL-detailinfo__span--days { /*days*/
+    font-size: 19px;
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 600;
+}
+
+.planL-detailinfo__button--blue {
+    width: 68px;
+    height: 30px;
+    position: absolute;
+    top: 37px;
+    right: 20px;
+    background-color: #808080;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bolder;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+.planL-popupcontainer {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    overflow: auto;
+}
+
+.planL-popbox {
+    width: 700px;
+    height: 450px;
+    position: relative;
+    z-index: 2;
+    background: white;
+    box-shadow: 3px 3px 5px black;
+    margin: 150px auto;
+    cursor: pointer;
+    text-align: center;
+}
+
+.planL-popheadbox {
+    width: 693px;
+    height: 45px;
+/*     border: 4px solid #abb2c7;  width: 693px;  height: 80px;  */
+    position: relative;
+}
+
+.planL-popheadbox__span--big {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.planL-popheadbox__button--big {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 120px;
+    height: 45px;
+    background-color: #737373;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Nanum Gothic', sans-serif;
+    cursor: pointer;
+}
+
+.planL-popcontentbox {
+    height: 360px;
+    width: 693px;
+/*     border-left: 4px solid #abb2c7; */
+/*     border-right: 4px solid #abb2c7; */
+/*     border-bottom: 4px solid #abb2c7; */
+}
+
+.planL-popdetailbox {
+    width: 100%;
+    height: 80px;
+    position: relative;
+}
+
+.planL-popdetailbox__span--big {
+    width: 100px;
+    height: 100px;
+    font-size: 23px;
+
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planL-popdetailbox__span--small {
+    position: absolute;
+    top: 44px;
+    right: 275px;
+    font-weight: bolder;
+}
+
+.planL-popdetailbox__input--gray {
+    position: absolute;
+    top: 36px;
+    right: 100px;
+    width: 350px;
+    height: 30px;
+    border: 2.5px solid #737373;
+    font-size: 16px;
+}
+
+.planL-popdetailbox__input--date {
+    width: 150px;
+    height: 35px;
+    margin-left: 87px;
+    margin-right: -47px;
+    margin-top: 34px;
+    border: 2.5px solid #737373;
+    font-size: 14px;
+}
+
+.planL-popbtnbox__input--blue {
+    width: 200px;
+    height: 50px;
+    background-color: #333333;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 30px auto;
+    cursor: pointer;
+}
+
+
+/* planDetail */
+
+.planD-container {
+    width: 1270px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+
+.planD-navbox__a--blue:hover {
+    color: #000000;
+}
+
+
+.planD-navbox {
+    width: 220px;
+    height: 530px;
+    position: absolute;
+    display: inline-block;
+    margin: 40px auto;
+    background-color: #737373;
+}
+
+.planD-navbox__ul--blue {
+    list-style-type: none;
+    margin: 25px 0 0 22px;
+    padding: 0;
+    color: white;
+    width: 170px;
+    font-weight: 700;
+}
+
+.planD-navbox__li--big {
+    height: 56px;
+    font-size: 20px;
+    color: white;
+    border-bottom: 3px solid #abb2c7;
+    line-height: 60px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planD-navbox__li--small {
+    margin: 30px 0 30px 6px;
+}
+
+.planD-navbox__a--blue {
+    font-size: 17px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planD-navbox__img--small {
+    width: 18px;
+    height: 18px;
+    vertical-align: sub;
+}
+
+.planD-planbox {
+    float: right;
+    width: 1000px;
+    margin: 40px auto;
+}
+
+.planD-titlebox {
+    width: 100%;
+    height: 325px;
+}
+
+.planD-imgbox {
+    width: 100%;
+    height: 310px;
+    position: relative;
+}
+
+.planD-imgbox--img__big {
+	margin-top: 30px;
+    width: 100%;
+    height: 280px;
+}
+
+.planD-titledetail {
+    position: absolute;
+    top: 85px;
+    left: 0px;
+    color: black;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.planD-titledays {
+    position: absolute;
+    top: 160px;
+    left: 0px;
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.planD-titleIntro {
+    position: absolute;
+    top: 210px;
+    left: 0px;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.planD-btnbox {
+    width: 1000px;
+    height: 215px;
+/*     border: 3px solid #666666; */
+    position: relative;
+    top: 50px;
+}
+
+.planD-btnbox-detail{
+	width: 1000px;
+	height: 150px;
+	position: relative;
+	top: 130px;
+}
+
+.planD-btnbox__button--blue {
+    width: 100px;
+    height: 50px;
+    position: relative;
+    top: 120px;
+    left: 680px;
+    color: white;
+    font-size: 22px;
+    background-color: #333333;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Nanum Gothic', sans-serif;
+    cursor: pointer;
+}
+
+.planD-btnbox__button--gray {
+    width: 100px;
+    height: 50px;
+    position: relative;
+    top: 120px;
+    left: 694px;
+    color: white;
+    font-size: 22px;
+    background-color: #cacdd1;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.planD-listbox {
+    width: 90%;
+    margin: 30px auto;
+    display: inline-block;
+}
+
+.planD-detailbox {
+    width: 100%;
+    margin: 10px auto;
+}
+
+.planD-datebox {
+    height: 60px;
+    border: 3px solid #666666;
+}
+
+.planD-days {
+    display: inline-block;
+    width: 110px;
+    height: 100%;
+    background-color: #404040;
+    border: 3px solid #ffffff;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 57px;
+}
+
+.planD-date {
+    display: inline-block;
+    width: 150px;
+    height: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 10px;
+
+}
+
+.planD-detail {
+    height: 160px;
+    border-left: 3px solid #666666;
+    border-bottom: 3px solid #666666;
+    border-right: 3px solid #666666;
+
+}
+
+.planD-detailnumber {
+    display: inline-block;
+    width: 107px;
+    height: 100%;
+    text-align: center;
+    line-height: 160px;
+}
+
+.planD-detailnumber__img--navy {
+    width: 33px;
+    height: 33px;
+    margin-bottom: -12px;
+}
+
+.planD-detailplace {
+    float: right;
+    right: 20px;
+    position: relative;
+    width: 750px;
+    height: 100%;
+    color: #404040;
+}
+
+.planD-detailtime__span--small {
+    font-size: 20px;
+    font-weight: 600;
+    position: absolute;
+    top: 18px;
+    color: #8c8c8c;
+}
+
+.planD-detailplace__span--small {
+    font-size: 32px;
+    font-weight: 600;
+    position: absolute;
+    top: 60px;
+    left: -5px;
+    display: inline-block;
+    max-width: 462px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.planD-detailinfo__span--small {
+    position: absolute;
+    top: 120px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #8c8c8c;
+}
+
+.planD-detailimg {
+    float: right;
+    background-color: burlywood;
+    border: 1px solid #cacdd1;
+    width: 220px;
+    height: 130px;
+    margin: 13px 10px 10px 10px;
+}
+
+.planD-mapbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #cacdd1;
+}
+
+.mapbox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.planD-map {
+    width: 100%;
+    height: 400px;
+    top: 30px;
+    border-bottom: 1px solid #cacdd1;
+    background-color: burlywood;
+}
+
+.planD-selectbox__select--day {
+    width: 90px;
+    height: 35px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #808080;;
+    color: black;
+}
+
+.planD-selectbox__select--day:focus {
+    border: 3px solid #666666;
+    outline: none;
+}
+
+.planD-selectbox {
+    position: absolute;
+    top: 360px;
+    left: 10px;
+    height: 200px;
+    z-index: 1;
+}
+
+.planD-placelistbox {
+    position: absolute;
+    width: 100%;
+    height: 177px;
+    top: 430px;
+
+}
+
+.planD-placelist {
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.planD-placedetail {
+    width: 150px;
+    height: 75px;
+    display: inline-block;
+    position: relative;
+}
+
+.planD-placedetail__img--navy {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 10px;
+    top: 20px;
+}
+
+.planD-placedetail__span--small {
+    font-family: 'Nanum Gothic', sans-serif;
+    width: 120px;
+    position: absolute;
+    top: 23px;
+    left: 45px;
+    font-size: 18px;
+    font-weight: 600;
+    display: block; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    overflow: hidden;
+}
+
+.planD-popupcontainer {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    overflow: auto;
+}
+
+.planD-popbox {
+    width: 700px;
+    height: 450px;
+    position: relative;
+    z-index: 2;
+    background: white;
+    box-shadow: 3px 3px 5px black;
+    margin: 150px auto;
+    cursor: pointer;
+    text-align: center;
+}
+
+.planD-popheadbox {
+    width: 693px;
+    height: 80px;
+/*     border: 4px solid #abb2c7; */
+    position: relative;
+}
+
+.planD-popheadbox__span--big {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planD-popheadbox__button--big {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 120px;
+    height: 45px;
+    background-color: #bfbfbf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.planD-popcontentbox {
+    height: 360px;
+    width: 693px;
+/*     border-left: 4px solid #abb2c7; */
+/*     border-right: 4px solid #abb2c7; */
+/*     border-bottom: 4px solid #abb2c7; */
+}
+
+.planD-popdetailbox {
+    width: 100%;
+    height: 80px;
+    position: relative;
+}
+
+.planD-popdetailbox__span--big {
+    width: 100px;
+    height: 100px;
+    font-size: 23px;
+
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planD-popdetailbox__span--small {
+    position: absolute;
+    top: 44px;
+    right: 275px;
+    font-weight: bolder;
+}
+
+.planD-popdetailbox__input--gray {
+    position: absolute;
+    top: 36px;
+    right: 100px;
+    width: 350px;
+    height: 30px;
+/*     border: 2.5px solid #dadce0; */
+    font-size: 16px;
+}
+
+.planD-popdetailbox__input--date {
+    width: 150px;
+    height: 35px;
+    margin-left: 87px;
+    margin-right: -47px;
+    margin-top: 34px;
+/*     border: 2.5px solid #dadce0; */
+    font-size: 14px;
+}
+
+.planD-popbtnbox__input--blue {
+    width: 200px;
+    height: 50px;
+    background-color: #333333;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 20px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    margin: 30px auto;
+    cursor: pointer;
+}
+
+.planD-footer {
+
+}
+
+/* planInsert */
+.planI-header {
+    width: 100%;
+    border-bottom: 1px solid #333333;
+    height: 130px;
+    position: relative;
+}
+
+
+.planI-header__button--sumbit {
+    width: 130px;
+    height: 60px;
+    position: absolute;
+    top: 35px;
+    right: 190px;
+    cursor: pointer;
+    background-color: #737373;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    margin-top: 28px;
+    font-size: 25px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planI-header__button--close {
+    width: 130px;
+    height: 60px;
+    position: absolute;
+    top: 35px;
+    right: 40px;
+    cursor: pointer;
+    background-color: #bfbfbf;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    margin-top: 28px;
+    font-size: 25px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+}
+
+.planI-container {
+    width: 100%;
+    height: 90%;
+}
+
+.planI-daysbox {
+    width: 120px;
+    height: 90%;
+    position: absolute;
+    left: 0px;
+    background-color: #737373;
+    overflow-y: scroll;
+}
+
+.planI-planscontainer {
+    width: 260px;
+    height: 90%;
+    position: absolute;
+    left: 120px;
+}
+
+.planI-plansbox {
+    float: left;
+    border-right: 1px solid #737373;
+    border-bottom: 1px solid #737373;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+#planI-searchbox {
+    border-right: 1px solid #757575;
+    border-bottom: 1px solid #757575;
+    width: 350px;
+    height: 90%;
+    position: absolute;
+    left: 380px;
+    overflow-y: scroll;
+}
+
+.planI-mapbox {
+    height: 90%;
+    width: 63%;
+    position: absolute;
+    left: 731px;
+}
+
+
+.planI-daysboxtitle {
+    height: 80px;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    line-height: 80px;
+    font-weight: bold;
+}
+
+.planI-daybox {
+    border-bottom: 1px solid white;
+    height: 80px;
+    color: white;
+    position: relative;
+    cursor: pointer;
+}
+
+.planI-daybox:hover {
+    background-color: #1a1a1a !important;
+}
+
+.planI-day {
+    font-size: 22px;
+    font-weight: bolder;
+    position: absolute;
+    top: 10px;
+    left: 30px;
+}
+
+.planI-date {
+    position: absolute;
+    bottom: 10px;
+    left: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+.planI-plansboxtitle {
+    background-color: #4d4d4d;
+    height: 80px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 80px;
+}
+
+.planI-planbox {
+    width: 100%;
+    height: 161px;
+    border-bottom: 1px solid #757575;
+}
+
+.planI-plannum {
+    width: 55px;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+.planI-plannum__img-navy {
+    position: absolute;
+    top: 28px;
+    left: 15px;
+    width: 33px;
+}
+
+.planI-plannum__span--time {
+    font-weight: bold;
+    position: absolute;
+    bottom: 55px;
+    left: 18px;
+    font-size: 14px;
+}
+
+.planI-plannum__span--memo {
+    font-weight: bold;
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    font-size: 14px;
+}
+
+.planI-plandetail {
+    float: right;
+    width: 203px;
+    height: 100%;
+    position: relative;
+
+}
+
+.planI-plandetail__span--place {
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    font-size: 25px;
+    font-weight: bolder;
+    color: #1a1a1a;
+    width: 180px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.planI-plandetail__input--time {
+    position: absolute;
+    bottom: 50px;
+    left: 0px;
+    width: 173px;
+    font-size: 15px;
+    font-weight: bold;
+    border: 2px solid #dadce0;
+    font-family: 'Nanum Gothic', sans-serif;
+
+}
+
+.planI-plandetail__input--intro {
+    position: absolute;
+    bottom: 15px;
+    left: 0px;
+    width: 170px;
+    height: 20px;
+    font-size: 11px;
+    border: 2px solid #dadce0;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 600;
+}
+
+.planI-plandetail__button--blue {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #dadce0;
+    border-radius: 6px;
+    background-color: white;
+    color: #bdbdbd;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 10px;
+    text-align: center;
+    padding: 0;
+    cursor: pointer;
+}
+
+
+#planI-searchbox::-webkit-scrollbar, .planI-plansbox::-webkit-scrollbar, .planI-daysbox::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+.planI-search {
+    border-bottom: 1px solid #757575;
+    width: 100%;
+    height: 79px;
+}
+
+#keyword {
+    border: 2px solid #757575;
+    width: 230px;
+    height: 35px;
+    margin: 20px 10px 0 25px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.planI-search button {
+    width: 50px;
+    height: 40px;
+    border: 2px solid #757575;
+    border-radius: 6px;
+    background-color: white;
+    color: #757575;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#planI-searchbox__ul--gray {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#planI-searchbox__ul--gray li {
+    margin: 0px 0 0 0;
+    border-bottom: 1px solid #757575;
+    list-style: none;
+    width: 100%;
+    height: 80px;
+    position: relative;
+}
+
+
+#planI-searchbox__ul--gray .markerbg {
+    float: left;
+    position: absolute;
+    left: 15px;
+    width: 36px;
+    height: 37px;
+    background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;
+}
+
+#planI-searchbox__ul--gray .info {
+    float: right;
+    width: 220px;
+    height: 100%;
+    position: absolute;
+    left: 50px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#planI-searchbox__ul--gray .h5 {
+    position: absolute;
+    top: -17px;
+    left: 10px;
+    font-size: 16px;
+    width: 210px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#planI-searchbox__ul--gray span {
+    position: absolute;
+    left: 10px;
+    bottom: 25px;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#planI-searchbox__ul--gray .tel {
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+    font-size: 13px;
+    color: green;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#planI-searchbox__ul--gray .item .marker_1 {
+    background-position: 0 -10px;
+}
+
+#planI-searchbox__ul--gray .item .marker_2 {
+    background-position: 0 -56px;
+}
+
+#planI-searchbox__ul--gray .item .marker_3 {
+    background-position: 0 -102px
+}
+
+#planI-searchbox__ul--gray .item .marker_4 {
+    background-position: 0 -148px;
+}
+
+#planI-searchbox__ul--gray .item .marker_5 {
+    background-position: 0 -194px;
+}
+
+#planI-searchbox__ul--gray .item .marker_6 {
+    background-position: 0 -240px;
+}
+
+#planI-searchbox__ul--gray .item .marker_7 {
+    background-position: 0 -286px;
+}
+
+#planI-searchbox__ul--gray .item .marker_8 {
+    background-position: 0 -332px;
+}
+
+#planI-searchbox__ul--gray .item .marker_9 {
+    background-position: 0 -378px;
+}
+
+#planI-searchbox__ul--gray .item .marker_10 {
+    background-position: 0 -423px;
+}
+
+#planI-searchbox__ul--gray .item .marker_11 {
+    background-position: 0 -470px;
+}
+
+#planI-searchbox__ul--gray .item .marker_12 {
+    background-position: 0 -516px;
+}
+
+#planI-searchbox__ul--gray .item .marker_13 {
+    background-position: 0 -562px;
+}
+
+#planI-searchbox__ul--gray .item .marker_14 {
+    background-position: 0 -608px;
+}
+
+#planI-searchbox__ul--gray .item .marker_15 {
+    background-position: 0 -654px;
+}
+
+.placelist-div {
+    position: absolute;
+    right: 13px;
+    top: 24px;
+}
+
+.placelist-div__button {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #777;
+    border-radius: 5px;
+    background-color: white;
+    color: #777;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#planI-pagination {
+    width: 100%;
+    height: 70px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#planI-pagination a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+#planI-pagination .on {
+    font-weight: bolder;
+    cursor: default;
+    color: #777;
+}
+
+#planI-pagination a, #planI-paginationp a:hover, #planI-pagination a:active {
+    color: #000;
+    text-decoration: none;
+}
+
+#planI-searchbox__ul--gray .item .marker_1 {
+    background-position: 0 -10px;
+}
+
+.planI-map {
+    width: 100%;
+    height: 100%;
+}
+
