@@ -85,13 +85,18 @@ public class HJController {
 	// 상세글(제목 누를 때) 들어갈 때
 	@GetMapping("/HJBoardDetail")
 	public String BoardDetail(Board board, Board_like board_like, Model model, HttpServletRequest request) {
-		logger.info("BoardDetail start");
+		System.out.println("HJController BoardDetail start");
 		
 		String query_string = request.getQueryString();
 		System.out.println("자바 현재 url 쿼리스트링!!! query_string->" + query_string);
 		
-		if(!query_string.contains("bc_contents")) {
-			System.out.println("!query_string.contains('bc_contents')");
+		int b_kind = board.getB_kind();
+		int b_no = board.getB_no();
+		System.out.println("HJController BoardDetail b_kind->" + b_kind + ", b_no->" + b_no);
+		
+//		if(!query_string.contains("bc_contents")) {
+//			System.out.println("!query_string.contains('bc_contents')");
+//		if(b_kind != 0 && b_no != 0) {
 			// 조회수 올리는 메소드
 			int b_hit = hs.getHit(board);
 			
@@ -99,7 +104,7 @@ public class HJController {
 			Board boardDetail = hs.BoardDetail(board); 
 			System.out.println("HJController BoardDetail boardDetail.getB_title()->" + boardDetail.getB_title());
 			model.addAttribute("boardDetail", boardDetail);
-		}
+//		}
 		
 		String m_id = board.getM_id();
 		System.out.println("로그인 했다면 HJController BoardDetail m_id->" + m_id);

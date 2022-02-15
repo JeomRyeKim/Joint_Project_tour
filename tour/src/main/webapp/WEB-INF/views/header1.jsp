@@ -7,15 +7,18 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
-</style>
 <style type="text/css">
 body {
 	width: 100%;
 	margin: 0;
-font-family: 'Nanum Pen Script', cursive;
 }
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*{font-family: 'InfinitySans-RegularA1';}
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link

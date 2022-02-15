@@ -1,5 +1,7 @@
 package com.oracle.tour.dto;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,7 @@ public class Board {
 	private String m_id;			// 회원 id
 	private String b_title;			// 게시판 제목
 	private String b_contents;		// 게시판 내용
-	private String b_date;			// 게시판 작성일
+	private Date   b_date;			// 게시판 작성일
 	private int    b_hit;			// 게시판 조회수
 	private String b_filename;		// 게시판 파일(이미지)
 	private int	   b_Group;			// 게시판 그룹

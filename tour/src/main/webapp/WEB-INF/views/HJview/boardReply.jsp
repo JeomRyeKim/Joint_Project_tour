@@ -1,25 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="boot.jsp" %>
 <!DOCTYPE html>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판</title>
+<%@include file="boot.jsp" %>
 <script>
 $(document).ready(function(){
  	$("#checkLock").change(function(){
- 		alert("lock 값을 변경합니다");
+//  		alert("lock 값을 변경합니다");
          if($("#checkLock").is(":checked")){
             $("#b_lock").val("y");
          }else{
             $("#b_lock").val("n");
          }
          var b_lock = $("#b_lock").val();
-         alert("b_lock->" + b_lock);
+//          alert("b_lock->" + b_lock);
      });
 });
 </script>
@@ -32,11 +29,10 @@ $(document).ready(function(){
 <hr>
 <pre>
 
-
 </pre>
 <c:if test="${msg!=null}">${msg}</c:if>
 <form action="HJboardReply" method="post" enctype="multipart/form-data">
-    <input type="hidden" id="m_id" name="m_id" value="${boardDetail.m_id}">
+    <input type="hidden" id="m_id" name="m_id" value="${sessionScope.m_id}">
     <input type="hidden" id="m_nickname" name="m_nickname" value="${boardDetail.m_nickname}">
     <input type="hidden" id="b_kind" name="b_kind" value="${boardDetail.b_kind}">
     <input type="hidden" id="b_no" name="b_no" value="${boardDetail.b_no}">
@@ -115,7 +111,7 @@ $(document).ready(function(){
     	<th class="row mt-1 mb-1" style="width:170px"><b align="center">첨부 파일</b></th>
     	<td>
 			<input type="file" id="filename" name="filename">
-			<span id="imgdel"><a href="#" id="preview-de" class="btn btn-outline-success">삭제</a></span>
+			<span id="imgdel"><a href="#" id="preview-de" style="background-color: #FFC478;" class="btn btn-outline-light text-white">삭제</a></span>
 			<div class="select_img"><img style="width: 500px; height: auto;" id="img" name="img"></div>
 		</td>
 	</tr>
@@ -123,12 +119,9 @@ $(document).ready(function(){
 <pre>
 
 </pre>
-	<input type="submit" value="입력" class="btn btn-outline-primary">
-	<a href="/HJBoard?m_id=${sessionScope.m_id}" class="btn btn-outline-secondary">목록</a> 
+	<input type="submit" value="입력"  style="background-color: #BBDFC8;" class="btn btn-outline-light text-white">
+	<a href="/HJBoard?m_id=${sessionScope.m_id}" style="background-color: #75CFB8;" class="btn btn-outline-light text-white">목록</a> 
 </form>
-
-
-
 </div>
 <pre>
 
@@ -139,11 +132,11 @@ $(document).ready(function(){
    if(this.files && this.files[0]) {
     var reader = new FileReader;
     if(document.getElementById("img")){
-    	alert("img있음!");
+//     	alert("img있음!");
     }else{
-    	alert("img없음!");
+//     	alert("img없음!");
 	    var str = '<img style="width: 500px; height: auto;" id="img" name="img">'
-	    alert("str->" + str);
+// 	    alert("str->" + str);
     	$(".select_img").append(str);
     }
     
@@ -155,7 +148,7 @@ $(document).ready(function(){
   });
   
   $('#imgdel').on('click', '#preview-de', function () {
-	  alert("사진 삭제합니다");	  
+// 	  alert("사진 삭제합니다");	  
 	  $(".select_img").empty()
 	  $("#filename").val("");
   });

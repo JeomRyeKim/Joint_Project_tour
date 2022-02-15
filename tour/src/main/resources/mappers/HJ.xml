@@ -14,15 +14,18 @@
 	</select>
 	<!-- 전체, 검색O -->
 	<select id="hjBoardTotal_y" resultType="int" parameterType="Board">
-		select count(*) from Board b, member m
+		select count(*)
         <choose>
 		 	 <when test="searchType == 'b_title'">
+		    		from Board
 		    		WHERE b_title like '%' || #{keyword} || '%'    
 		   	 </when>
 		 	 <when test="searchType == 'b_contents'">
+		    		from Board
 		    		WHERE b_contents like '%' || #{keyword} || '%'    
 		   	 </when>
 		 	 <when test="searchType == 'm_nickname'">
+		 	 		from Board b, member m
 		    		WHERE b.m_id = m.m_id 
 					and m.m_nickname like '%' || #{keyword} || '%'    
 		   	 </when>
@@ -45,45 +48,54 @@
 	</select>
 	<!-- 유형별, 검색O -->
 	<select id="hjBoardKindTotal_y" resultType="int" parameterType="Board">
-		select count(*) from Board b, member m
+		select count(*)
 		<choose>
 		 	 <when test="b_kind == 1 and searchType == 'b_title'">
+		    		from Board
 		    		WHERE b_kind in (1, 4)
 		    		AND b_title like '%' || #{keyword} || '%'    
 		   	 </when>
 		 	 <when test="b_kind == 1 and searchType == 'b_contents'">
+		    		from Board
 		    		WHERE b_kind in (1, 4)
 		    		AND b_contents like '%' || #{keyword} || '%'    
 		   	 </when>
 		 	 <when test="b_kind == 1 and searchType == 'm_nickname'">
+		    		from Board b, member m
 		    		WHERE b_kind in (1, 4)
 		    		AND b.m_id = m.m_id
 		    		AND m.m_nickname like '%' || #{keyword} || '%'     
 		   	 </when>
 		   	 
 		 	 <when test="b_kind == 2 and searchType == 'b_title'">
+		    		from Board
 		    		WHERE b_kind in (2, 4)
 		    		AND b_title like '%' || #{keyword} || '%'    
 		   	 </when>
 		 	 <when test="b_kind == 2 and searchType == 'b_contents'">
+		    		from Board
 		    		WHERE b_kind in (2, 4)
 		    		AND b_contents like '%' || #{keyword} || '%'    
 		   	 </when>
 		 	 <when test="b_kind == 2 and searchType == 'm_nickname'">
+		    		from Board b, member m
 		    		WHERE b_kind in (2, 4)
 		    		AND b.m_id = m.m_id
 		    		AND m.m_nickname like '%' || #{keyword} || '%'    
 		   	 </when>
 		   	 
 		 	 <when test="b_kind == 3 and searchType == 'b_title'">
+		    		from Board
 		    		WHERE b_kind in (3, 4)
 		    		AND b_title like '%' || #{keyword} || '%'    
 		   	 </when>
 		 	 <when test="b_kind == 3 and searchType == 'b_contents'">
+		    		from Board
 		    		WHERE b_kind in (3, 4)
 		    		AND b_contents like '%' || #{keyword} || '%'    
 		   	 </when>
 		 	 <when test="b_kind == 3 and searchType == 'm_nickname'">
+		    		from Board b, member m
 		    		WHERE b_kind in (3, 4)
 		    		AND b.m_id = m.m_id
 		    		AND m.m_nickname like '%' || #{keyword} || '%'        
