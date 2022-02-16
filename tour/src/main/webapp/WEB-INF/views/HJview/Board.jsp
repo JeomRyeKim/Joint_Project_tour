@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시판</title>
+<title>+82Trip</title>
 <%@include file="boot.jsp" %>
 <script type="text/javascript">
 function SearchText(keyword){
@@ -52,7 +52,7 @@ function writeCheck(){
 <%@include file="../header1.jsp" %>
 <%@include file="../header2.jsp" %>
 <div class="container mt-3 mb-3 table-bordered">
-   <h2 id="board" class="mb-5 mt-5" style="color: #75CFB8"><b>게시판</b></h2>
+   <h2 id="board" class="mt-5 mb-3" style="color: #75CFB8"><b>게시판</b></h2>
 	<label><a style="background-color: #BBDFC8;" class="btn btn-outline-light text-white" value="a"  id="all"    onclick="location.href = '/HJBoard?&m_id=${member.m_id}'">전체</a></label>
 	<label><a style="background-color: #BBDFC8;" class="btn btn-outline-light text-white" value="1"  id="free"   onclick="location.href = '/HJBoard?b_kind=1&m_id=${member.m_id}'">자유</a></label>
 	<label><a style="background-color: #BBDFC8;" class="btn btn-outline-light text-white" value="2"  id="review" onclick="location.href = '/HJBoard?b_kind=2&m_id=${member.m_id}'">후기</a></label>
@@ -69,12 +69,12 @@ function writeCheck(){
 <table class="table table-hover mt-3">
     <thead style="background:#F0E5D8; ">
       <tr style="text-align: center;">
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>좋아요</th>
-        <th>조회수</th>
+        <th class="col-sm-1">번호</th>
+        <th class="col-sm-7">제목</th>
+        <th class="col-sm-1">작성자</th>
+        <th class="col-sm-1">작성일</th>
+        <th class="col-sm-1">좋아요</th>
+        <th class="col-sm-1">조회수</th>
       </tr>
     </thead>
 	<tbody>
@@ -84,8 +84,8 @@ function writeCheck(){
     	<input type="hidden" id="b_lokc" value="${board.b_lock}">
     	<input type="hidden" id="b_notice" value="${board.b_notice}">
 	      <tr id="bb" class="text-secondary">
-	        <td style="text-align: center;">${board.b_no}</td>
-	        <td style="text-align: left;">
+	        <td class="col-sm-1" style="text-align: center;">${board.b_no}</td>
+	        <td class="col-sm-7" style="text-align: left;">
 	          <c:if test="${board.b_kind eq 1}">
 	        	[자유]
 	          </c:if>
@@ -96,7 +96,7 @@ function writeCheck(){
 	        	[QnA]
 	          </c:if>
 	      	  <c:if test="${board.b_kind eq 4}">
-	        	<b><span class="badge bg-success">공지</span></b>
+	        	<b><span style="background-color: #FFC478" class="badge bg-orange-200">공지</span></b>
 	          </c:if>
 		        <!-- when 비밀글O, 로그인X -->
 				<!-- when 비밀글O, 본인글X, 관리자X -->
@@ -134,9 +134,9 @@ function writeCheck(){
 		        	</c:otherwise>
 		        </c:choose>
 	        </td>
-	        <td style="text-align: center;">${board.m_nickname}</td>
-	        <td style="text-align: center;"><fmt:formatDate pattern = "yyyy/MM/dd" value="${board.b_date}"/></td>
-	        <td style="text-align: center;">
+	        <td class="col-sm-1" style="text-align: center;">${board.m_nickname}</td>
+	        <td class="col-sm-1" style="text-align: center;"><fmt:formatDate pattern = "yyyy-MM-dd" value="${board.b_date}"/></td>
+	        <td class="col-sm-1" style="text-align: center;">
 	        	<c:if test="${board.b_like_cnt > 0}">
 	        		<img src='image/like/heart_like.png' id="like_img" class="likeImage" width="25" height="auto"> ${board.b_like_cnt}
 	        	</c:if>
@@ -144,7 +144,7 @@ function writeCheck(){
 	        		<img src='image/like/heart_dislike.png' id="like_img" class="likeImage" width="25" height="auto"> ${board.b_like_cnt}
 	        	</c:if>
 	        </td>
-	        <td style="text-align: center;">${board.b_hit}</td>
+	        <td class="col-sm-1" style="text-align: center;">${board.b_hit}</td>
 	      </tr>
     </c:forEach>
     </tbody>
@@ -159,56 +159,88 @@ function writeCheck(){
   <!-- 전체, 검색X -->
   <c:if test = "${kind == null and search == null}">
 	<c:if test="${pg.startPage > pg.pageBlock}">
-		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${pg.startPage-pg.pageBlock}&m_id=${member.m_id}"/>"><</a></li>
+		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${pg.startPage-pg.pageBlock}&m_id=${member.m_id}"/>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+			</svg>
+		</a></li>
 	</c:if>
 	<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
 		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${i}&m_id=${member.m_id}"/>">${i}</a></li>
 	</c:forEach>
 	<c:if test="${pg.endPage < pg.totalPage}">
-		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${pg.startPage+pg.pageBlock}&m_id=${member.m_id}"/>">></a></li>
+		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${pg.startPage+pg.pageBlock}&m_id=${member.m_id}"/>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+			</svg>
+		</a></li>
 	</c:if>
    </c:if>
   <!-- 전체, 검색O -->
   <c:if test="${kind == null and search != null}">
     <c:if test="${pg.startPage > pg.pageBlock}">
-		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${pg.startPage-pg.pageBlock}&m_id=${member.m_id}&searchType=${board.searchType}&keyword=${board.keyword}"/>"><</a></li>
+		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${pg.startPage-pg.pageBlock}&m_id=${member.m_id}&searchType=${board.searchType}&keyword=${board.keyword}"/>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+			</svg>
+		</a></li>
 	</c:if>
 	<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
 		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${i}&m_id=${member.m_id}&searchType=${board.searchType}&keyword=${board.keyword}"/>">${i}</a></li>
 	</c:forEach>
 	<c:if test="${pg.endPage < pg.totalPage}">
-		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${pg.startPage+pg.pageBlock}&m_id=${member.m_id}&searchType=${board.searchType}&keyword=${board.keyword}"/>">></a></li>
+		<li class="page-item"><a class="page-link text-dark" href="<c:url value="HJBoard?currentPage=${pg.startPage+pg.pageBlock}&m_id=${member.m_id}&searchType=${board.searchType}&keyword=${board.keyword}"/>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+			</svg>
+		</a></li>
 	</c:if>
   </c:if>
   
   <!-- 유형별, 검색X -->
   <c:if test = "${kind != null and search == null}">
 	<c:if test="${pg.startPage > pg.pageBlock}">
-		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${pg.startPage-pg.pageBlock}&m_id=${member.m_id}&b_kind=${board.b_kind}"><</a></li>
+		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${pg.startPage-pg.pageBlock}&m_id=${member.m_id}&b_kind=${board.b_kind}">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+			</svg>
+		</a></li>
 	</c:if>
 	<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
 		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${i}&m_id=${member.m_id}&b_kind=${board.b_kind}">${i}</a></li>
 	</c:forEach>
 	<c:if test="${pg.endPage < pg.totalPage}">
-		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${pg.startPage+pg.pageBlock}&m_id=${member.m_id}&b_kind=${board.b_kind}">></a></li>
+		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${pg.startPage+pg.pageBlock}&m_id=${member.m_id}&b_kind=${board.b_kind}">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+			</svg>
+		</a></li>
 	</c:if>
   </c:if>
   <!-- 유형별, 검색O -->
   <c:if test = "${kind != null and search != null}">
 	<c:if test="${pg.startPage > pg.pageBlock}">
-		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${pg.startPage-pg.pageBlock}&m_id=${member.m_id}&b_kind=${board.b_kind}&searchType=${board.searchType}&keyword=${board.keyword}"><</a></li>
+		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${pg.startPage-pg.pageBlock}&m_id=${member.m_id}&b_kind=${board.b_kind}&searchType=${board.searchType}&keyword=${board.keyword}">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+			</svg>		
+		</a></li>
 	</c:if>
 	<c:forEach var="i" begin="${pg.startPage}" end="${pg.endPage}">
 		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${i}&m_id=${member.m_id}&b_kind=${board.b_kind}&searchType=${board.searchType}&keyword=${board.keyword}">${i}</a></li>
 	</c:forEach>
 	<c:if test="${pg.endPage < pg.totalPage}">
-		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${pg.startPage+pg.pageBlock}&m_id=${member.m_id}&b_kind=${board.b_kind}&searchType=${board.searchType}&keyword=${board.keyword}">></a></li>
+		<li class="page-item"><a class="page-link text-dark" href="HJBoard?currentPage=${pg.startPage+pg.pageBlock}&m_id=${member.m_id}&b_kind=${board.b_kind}&searchType=${board.searchType}&keyword=${board.keyword}">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+			</svg>
+		</a></li>
 	</c:if>
   </c:if>
 </ul>
 </div> <!-- 페이징 처리 끝 -->
 
-<table>
+<table style="border-color: lightgray;">
 <tr>
 <th>
   <select name="searchType" id="searchType" type="button" class="btn btn-outline-white dropdown-toggle" data-bs-toggle="dropdown" style="color: #75CFB8;">
@@ -225,7 +257,12 @@ function writeCheck(){
 		</svg> 검색
 	  </button>
 </td>
-  <input type="button" id="goWrite" onclick="writeCheck()" value="글쓰기" style="float:right; background-color: #FFC478;"  class="btn btn-outline-light text-white">
+  <button type="button" id="goWrite" onclick="writeCheck()" style="float:right; background-color: #FFC478;"  class="btn btn-outline-light text-white">
+  	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+	  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+	  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+	</svg> 글쓰기	
+  </button>
 </tr>
 </table>
 </div>

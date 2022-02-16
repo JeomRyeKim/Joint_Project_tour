@@ -16,15 +16,15 @@
     <div class="nav navbar-nav">
       <ul class="navbar-nav me-auto" id="mynavbar">
         <li class="nav-item">
-          <a class="nav-link" href="#">회사소개</a>
+          <a class="nav-link" href="Footer_company?m_id=${sessionScope.m_id}">회사 소개</a>
         </li>
 		<pre>       </pre>
         <li class="nav-item">
-          <a class="nav-link" href="#">이용약관</a>
+          <a class="nav-link" href="Footer_agreement?m_id=${sessionScope.m_id}">이용 약관</a>
         </li>
 		<pre>       </pre>
         <li class="nav-item">
-          <a class="nav-link" href="#">개인정보처리방침</a>
+          <a class="nav-link" href="Footer_privacy?m_id=${sessionScope.m_id}">개인정보처리방침</a>
         </li>
       </ul>
     </div>

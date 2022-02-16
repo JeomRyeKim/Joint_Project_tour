@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>+82Trip</title>
 <%@include file="boot.jsp" %>
 <script>
 $(document).ready(function(){
@@ -25,7 +25,7 @@ $(document).ready(function(){
 <%@include file="../header1.jsp" %>
 <%@include file="../header2.jsp" %>
 <div class="container mt-5">
-<h4><b>게시판 답변글 입력</b></h4>
+<h4><b style="color: #75CFB8">게시판 답변글 입력</b></h4>
 <hr>
 <pre>
 

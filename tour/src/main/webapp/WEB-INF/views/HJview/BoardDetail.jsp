@@ -4,7 +4,7 @@
 <html> 
 <head>
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>+82Trip</title>
 <%@include file="boot.jsp" %>
 <style>
 input:focus {outline:none;}
@@ -95,7 +95,7 @@ function like_func(){
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
   <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
   <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-</svg> <fmt:formatDate pattern = "yyyy/MM/dd" value="${boardDetail.b_date}"/> | 
+</svg> <fmt:formatDate pattern = "yyyy-MM-dd" value="${boardDetail.b_date}"/> | 
 
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
   <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
@@ -135,8 +135,8 @@ function like_func(){
 <!-- 댓글 -->
 <div class="container md-6 mt-4 p-5 bg-light rounded">
     <div>
-    <label for="content"><b class="h5">댓글 <input id="commentCnt" class="h5" style="border:none; width: 40px;" value="0" readonly="readonly"></b></label>
-    <label><input type="checkbox" id="checkLock" value=""> 비밀글</label>
+    <label for="content"><b class="h5 text-secondary">댓글 <input id="commentCnt" class="h5" style="border:none; width: 40px; color: #FFC478; background-color:transparent;" value="0" readonly="readonly"></b></label>
+    <label><input type="checkbox" id="checkLock" value="" class="text-secondary"> 비밀글</label>
     </div>
     <form name="commentInsertForm" class="mt-3 md-6">
         <div class="input-group">
@@ -290,7 +290,7 @@ document.querySelector('#bc_contents').addEventListener('keypress', function (e)
 	if (e.key === 'Enter') {
 // 	alert("#bc_contents enter");
 		if(document.getElementById('bc_contents').value == "" && document.getElementById('session_id').value == ""){
-			alert("로그인 해주세요");
+			alert("로그인 후 이용해주세요");
 // 			Swal.fire({ 
 // 				icon: 'warning', // Alert 타입 
 // 				title: '댓글 작성', // Alert 제목 
@@ -374,12 +374,15 @@ function commentList(){
                      let m_nickname = data[i].m_nickname;
                      let m_kind = data[i].m_kind;
                      
+                     var date = data[i].bc_date.substring(0,10);
+                     console.log("date->" + date);
+
 //                      console.log("b_kind->" + b_kind);
 //                      console.log("b_no->" + b_no);
 //                      console.log("m_id->" + m_id);
 //                      console.log("bc_no->" + bc_no);
 //                      console.log("bc_contents->" + bc_contents);
-//                      console.log("bc_date->" + bc_date);
+                     console.log("bc_date->" + bc_date);
 //                      console.log("bc_Group->" + bc_Group);
 //                      console.log("bc_Step->" + bc_Step);
 //                      console.log("bc_Indent->" + bc_Indent);
@@ -388,7 +391,7 @@ function commentList(){
 //                      console.log("m_kind->" + m_kind);
 					 // 비밀글O, 댓글 작성자 or 관리자                  	 
                    	 if(bc_lock == 'y' && (session_id == m_id || session_m_kind == '2')){
-	                     a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+	                     a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid lightgray; margin-bottom: 15px;">';
 		                 a += '<div id="bc_info" class="commentInfo' + bc_no+'" value="'+ m_id +'">';
                    		 if(bc_Indent > 0){
                    			for (let i = 0; i < bc_Indent; i++){ 
@@ -397,15 +400,21 @@ function commentList(){
 						   	 	 a += '	</svg>';
                    			}
                    		 }
-		                 a += '<b>' + m_nickname + '</b> ' + ' ( '+ bc_date +' ) ';
+		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +'</a>';
 		                 a += '<a onclick="commentUpdate(' + bc_no + ',\''+ bc_contents +'\', \''+ bc_lock +'\');"> 수정 </a>';
 		                 a += '<a onclick="commentDelete(' + bc_no + ', '+ bc_Group + ', ' + bc_Step +');"> 삭제 </a>';
 		                 a += '<a onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
-		                 a += '<div class="commentContent' + bc_no + '"> <p><img src="image/lock.png" width="15" height="auto">'+ bc_contents + '</p></div>';
+		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary">';
+                    	 if(bc_Indent > 0){
+                    			for (let i = 0; i < bc_Indent; i++){ 
+ 	   		         			 a += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    			}
+                     	 }
+		                 a += '&nbsp;&nbsp;<img src="image/lock.png" width="15" height="auto">&nbsp; '+ bc_contents + '</p></div>';
 		                 a += '<div class="replyForm'+bc_no+'"></div></div>';
                    	 }// 비밀글O, 게시글 작성자
                    	 else if(bc_lock == 'y' && session_id == b_id){
-                    	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                    	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid lightgray; margin-bottom: 15px;">';
  		                 a += '<div class="commentInfo' + bc_no + '" value="'+ m_id +'">';
                    		 if(bc_Indent > 0){
                    			for (let i = 0; i < bc_Indent; i++){ 
@@ -414,13 +423,19 @@ function commentList(){
 						   	 	 a += '	</svg>';
                    			}
                     	 }
- 		                 a += '<b>' + m_nickname + '</b> '+ ' ( '+ bc_date +' )';
+ 		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +' </a>';
  		                 a += '<a onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
- 		                 a += '<div class="commentContent' + bc_no + '"> <p><img src="image/lock.png" width="15" height="auto"> ' + bc_contents +'</p></div>';
+ 		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary">';
+                    	 if(bc_Indent > 0){
+                    			for (let i = 0; i < bc_Indent; i++){ 
+ 	   		         			 a += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    			}
+                     	 }
+ 		                 a += '&nbsp;&nbsp;<img src="image/lock.png" width="15" height="auto">&nbsp; ' + bc_contents +'</p></div>';
  		                 a += '<div class="replyForm'+bc_no+'"></div></div>';
                    	 }//  비밀글O, 로그인X 
                    	 else if(bc_lock == 'y' && ${sessionScope.m_id == null}){
-                      	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                      	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid lightgray; margin-bottom: 15px;">';
                       	 a += '<div class="commentInfo' + bc_no + '">';
                    		 if(bc_Indent > 0){
                    			for (let i = 0; i < bc_Indent; i++){ 
@@ -429,12 +444,18 @@ function commentList(){
 						   	 	 a += '	</svg>';
                    			}
                     	 }
-                      	 a += '<b>' +  bc_date +'</b></div>';
-                      	 a += '<div class="commentContent' + bc_no + '"> <p><img src="image/lock.png" width="15" height="auto"> 해당 댓글은 작성자와 운영자만 볼 수 있습니다.</p>';
+                      	 a += '<b>'+ date +'</b></div>';
+                      	 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary">';
+                    	 if(bc_Indent > 0){
+                    			for (let i = 0; i < bc_Indent; i++){ 
+ 	   		         			 a += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    			}
+                     	 }
+                      	 a += '&nbsp;&nbsp;<img src="image/lock.png" width="15" height="auto">&nbsp; 해당 댓글은 작성자와 운영자만 볼 수 있습니다.</p>';
                          a += '</div></div>'; 
                      }// 비밀글O, 로그인O, 본인 댓글X or 관리자X or 게시글 작성자X
                    	 else if(bc_lock == 'y' && ${sessionScope.m_id != null} && (session_id != m_id || session_m_kind != '2' || session_id != b_id)){
-                      	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                      	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid lightgray; margin-bottom: 15px;">';
                       	 a += '<div class="commentInfo' + bc_no + '" value="'+ m_id +'">';
                    		 if(bc_Indent > 0){
                    			for (let i = 0; i < bc_Indent; i++){ 
@@ -443,12 +464,18 @@ function commentList(){
 						   	 	 a += '	</svg>';
                    			}
                     	 }
-                      	 a += '<b>' +  bc_date +'</b></div>';
-                      	 a += '<div class="commentContent' + bc_no + '"> <p><img src="image/lock.png" width="15" height="auto"> 해당 댓글은 작성자와 운영자만 볼 수 있습니다.</p>';
+                      	 a += '<b>'+ date +'</b></div>';
+                      	 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary">';
+                    	 if(bc_Indent > 0){
+                    			for (let i = 0; i < bc_Indent; i++){ 
+ 	   		         			 a += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    			}
+                     	 }
+                      	 a += '&nbsp;&nbsp;<img src="image/lock.png" width="15" height="auto">&nbsp; 해당 댓글은 작성자와 운영자만 볼 수 있습니다.</p>';
                          a += '</div></div>'; 
             		 }// 비밀글 X, 로그인O, 본인 댓글 or 관리자
                      else if(bc_lock == 'n' && ${sessionScope.m_id != null} && (session_id == m_id || session_m_kind == '2')){
-                    	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                    	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid lightgray; margin-bottom: 15px;">';
 		                 a += '<div id="bc_info" class="commentInfo' + bc_no+'" value="'+ m_id +'">';
                     	 if(bc_Indent > 0){
                    			for (let i = 0; i < bc_Indent; i++){ 
@@ -457,15 +484,21 @@ function commentList(){
 						   	 	 a += '	</svg>';
                    			}
                     	 }
-		                 a += '<b>' + m_nickname + '</b> ' + ' ( '+ bc_date +' ) ';
+		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +' </a>';
 		                 a += '<a onclick="commentUpdate(' + bc_no + ',\''+ bc_contents +'\', \''+ bc_lock +'\');"> 수정 </a>';
 		                 a += '<a onclick="commentDelete(' + bc_no + ', '+ bc_Group + ', ' + bc_Step +');"> 삭제 </a>';
 		                 a += '<a onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
-		                 a += '<div class="commentContent' + bc_no + '"> <p> '+ bc_contents + '</p></div>';
+		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary"> ';
+                    	 if(bc_Indent > 0){
+                    			for (let i = 0; i < bc_Indent; i++){ 
+ 	   		         			 a += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    			}
+                     	 }
+		                 a += '&nbsp;&nbsp;'+ bc_contents + '</p></div>';
 		                 a += '<div class="replyForm'+bc_no+'"></div></div>';
                      } // 비밀글 X, 로그인X
                      else if(bc_lock == 'n' && ${sessionScope.m_id == null}){
-                    	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                    	 a += '<div class="commentArea row mt-3 md-3" style="border-bottom:1px solid lightgray; margin-bottom: 15px;">';
  		                 a += '<div class="commentInfo' + bc_no + '">';
                     	 if(bc_Indent > 0){
                    			for (let i = 0; i < bc_Indent; i++){ 
@@ -474,12 +507,18 @@ function commentList(){
 						   	 	 a += '	</svg>';
                    			}
                     	 }
- 		                 a += '<b>' + m_nickname + '</b> '+ ' ( '+ bc_date +' ) </div>';
- 		                 a += '<div class="commentContent' + bc_no + '"> <p> ' + bc_contents +'</p>';
+ 		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +' </a></div>';
+ 		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary">';
+                    	 if(bc_Indent > 0){
+                   			for (let i = 0; i < bc_Indent; i++){ 
+	   		         			 a += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                   			}
+                    	 }
+ 		                 a += '&nbsp;&nbsp;' + bc_contents +'</p>';
  		                 a += '</div></div>'; 
                      } // 비밀글 X, 로그인O, 본인 댓글X or 관리자X
                      else if(bc_lock == 'n' && ${sessionScope.m_id != null} && (session_id != m_id || session_m_kind != '2')){
-                    	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                    	 a += '<div class="commentArea mt-3 md-3" style="border-bottom:1px solid lightgray; margin-bottom: 15px;">';
  		                 a += '<div class="commentInfo' + bc_no + '" value="'+ m_id +'">';
                     	 if(bc_Indent > 0){
                    			for (let i = 0; i < bc_Indent; i++){ 
@@ -488,9 +527,15 @@ function commentList(){
 						   	 	 a += '	</svg>';
                    			}
                     	 }
- 		                 a += '<b>' + m_nickname + '</b> '+ ' ( '+ bc_date +' )';
+ 		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +' </a>';
  		                 a += '<a onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
- 		                 a += '<div class="commentContent' + bc_no + '"> <p> ' + bc_contents +'</p></div>';
+ 		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary"> ';
+                    	 if(bc_Indent > 0){
+                    			for (let i = 0; i < bc_Indent; i++){ 
+ 	   		         			 a += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    			}
+                     	 }
+ 		                 a += '&nbsp;&nbsp;'+ bc_contents +'</p></div>';
  		                 a += '<div class="replyForm'+bc_no+'"></div></div>';
                      }
                 } // for(const i in data) 끝

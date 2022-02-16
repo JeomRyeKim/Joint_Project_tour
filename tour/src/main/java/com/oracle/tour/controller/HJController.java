@@ -558,5 +558,24 @@ public class HJController {
 		String commentReplyInsertStr = Integer.toString(commentReplyInsertChk);
 		return commentReplyInsertStr;
 	}
+	// Footer
+	// 회사 소개
+	@RequestMapping("Footer_company")
+	public String Footer_company() {
+		System.out.println("HJController Footer_company start");
+		return "HJview/company";
+	}
+	// 이용 약관
+	@RequestMapping("Footer_agreement")
+	public String Footer_agreement() {
+		System.out.println("HJController Footer_agreement start");
+		return "HJview/agreement";
+	}
+	// 개인정보처리방침
+	@RequestMapping("Footer_privacy")
+	public String Footer_privacy() {
+		System.out.println("HJController Footer_privacy start");
+		return "HJview/privacy";
+	}
 	
 }
