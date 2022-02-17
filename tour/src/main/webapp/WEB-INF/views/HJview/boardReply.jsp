@@ -6,20 +6,6 @@
 <meta charset="UTF-8">
 <title>+82Trip</title>
 <%@include file="boot.jsp" %>
-<script>
-$(document).ready(function(){
- 	$("#checkLock").change(function(){
-//  		alert("lock 값을 변경합니다");
-         if($("#checkLock").is(":checked")){
-            $("#b_lock").val("y");
-         }else{
-            $("#b_lock").val("n");
-         }
-         var b_lock = $("#b_lock").val();
-//          alert("b_lock->" + b_lock);
-     });
-});
-</script>
 </head>
 <body>
 <%@include file="../header1.jsp" %>
@@ -127,6 +113,20 @@ $(document).ready(function(){
 
 </pre>
 <%@include file="../footer.jsp" %>
+<script>
+$(document).ready(function(){
+ 	$("#checkLock").change(function(){
+//  		alert("lock 값을 변경합니다");
+         if($("#checkLock").is(":checked")){
+            $("#b_lock").val("y");
+         }else{
+            $("#b_lock").val("n");
+         }
+         var b_lock = $("#b_lock").val();
+//          alert("b_lock->" + b_lock);
+     });
+});
+</script>
  <script>
   $("#filename").change(function(){
    if(this.files && this.files[0]) {

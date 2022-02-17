@@ -9,35 +9,6 @@
 <style>
 .select_img img{margin: 20px 0;}
 </style>
-<script>
- $(document).ready(function(){
-// 	 var lock = $("#lock").val();
-// 	 var b_lokc = $("#b_lock").val();
-// 	 alert("lock->" + lock);
-// 	 alert("b_lock->" + b_lock);
- 	$("#checkLock").change(function(){
-//  		alert("lock 값을 변경합니다");
-         if($("#checkLock").is(":checked")){
-            $("#b_lock").val("y");
-         }else{
-            $("#b_lock").val("n");
-         }
-         var b_lock = $("#b_lock").val();
-//          alert("b_lock->" + b_lock);
-     });
- 	
- 	$("select[name=b_kind]").change(function(){
- 		var b_kind = $(this).val(); //value값 가져오기
-//  		alert("b_kind->" + b_kind); 
- 		if(b_kind == '4'){
-// 			alert("b_notice -> 2로 변경");
-			$("#b_notice").val("2");
- 		}else{
- 			$("#b_notice").val("1");
- 		}
- 	});
- });
-</script>
 </head>
 <body>
 <%@include file="../header1.jsp" %>
@@ -100,6 +71,35 @@
 
 </pre>
 <%@include file="../footer.jsp" %>
+<script>
+ $(document).ready(function(){
+// 	 var lock = $("#lock").val();
+// 	 var b_lokc = $("#b_lock").val();
+// 	 alert("lock->" + lock);
+// 	 alert("b_lock->" + b_lock);
+ 	$("#checkLock").change(function(){
+//  		alert("lock 값을 변경합니다");
+         if($("#checkLock").is(":checked")){
+            $("#b_lock").val("y");
+         }else{
+            $("#b_lock").val("n");
+         }
+         var b_lock = $("#b_lock").val();
+//          alert("b_lock->" + b_lock);
+     });
+ 	
+ 	$("select[name=b_kind]").change(function(){
+ 		var b_kind = $(this).val(); //value값 가져오기
+//  		alert("b_kind->" + b_kind); 
+ 		if(b_kind == '4'){
+// 			alert("b_notice -> 2로 변경");
+			$("#b_notice").val("2");
+ 		}else{
+ 			$("#b_notice").val("1");
+ 		}
+ 	});
+ });
+</script>
  <script>
   $("#filename").change(function(){
    if(this.files && this.files[0]) {

@@ -13,60 +13,10 @@ input:focus {outline:none;}
 	String context = request.getContextPath();
     System.out.println("context->"+context);
 %>
-<script>
-function like_func(){
-	if(${sessionScope.m_id == null}){
-		Swal.fire({ 
-			icon: 'warning', // Alert 타입 
-			title: '좋아요', // Alert 제목 
-			text: '로그인 해주세요' // Alert 내용 
-		});
-	}else { 
-		var selB_like_check = $('#b_like_check').val();
-// 		alert("selB_like_check->" + selB_like_check);
-		var selB_kind = ${boardDetail.b_kind};
-		var selB_no = ${boardDetail.b_no};
-		var session_id = document.getElementById('session_id').value;
-// 		alert("selB_kind->" + selB_kind + ", selB_no->" + selB_no);
-// 		alert('session_id->' + session_id);
-		
-// 		alert("좋아요를 누르시겠습니까?");
-		$.ajax(
-				{
-					url:"<%=context%>/HJBoardLike",
-					data:{b_kind : selB_kind , b_no : selB_no, m_id : session_id, b_like_check : selB_like_check}, 
-					dataType:'json', 
-					success:function(data){
-// 						alert("ajax 좋아요 y여부 data.BLikeChk->" + data.BLikeChk);
-// 						alert("ajax 좋아요 n여부 data.BLikeChk_n->" + data.BLikeChk_n);
-// 						alert("ajax 좋아요 insert 여부 data.insert_bl->" + data.insert_bl);
-// 						alert("ajax 좋아요 b_like_cnt +1여부 data.like_b->" + data.like_b);
-// 						alert("ajax 좋아요 update 여부 data.update_bl->" + data.update_bl);
-// 						alert("ajax 좋아요 b_like_check 'y' -> 'n'으로 변경 여부 data.dislike_bl->" + data.dislike_bl);
-// 						alert("ajax 좋아요b_like_cnt -1여부 data.dislike_b->" + data.dislike_b);
-// 						alert("ajax 좋아요 y or n여부 data.b_like_check->" + data.b_like_check);
-// 						alert("ajax 좋아요 총 개수 data.b_like_cnt->" + data.b_like_cnt);
-						
-						$("#b_like_check").val(data.b_like_check);
-						$("#b_like_cnt").val(data.b_like_cnt);
-						if(data.b_like_check == 'y'){
-							document.getElementById("like_img").src = "./image/like/heart_like.png";
-						}else{
-							document.getElementById("like_img").src = "./image/like/heart_dislike.png";
-						}
-					},
-					error:function(){
-						alert("좋아요 error났습니다!");
-					}
-				}
-		);
-	}
-}
-</script>
 </head>
 <body>
-<%@include file="../header1.jsp" %>
-<%@include file="../header2.jsp" %>
+<%@include file="../header1.jsp" %> 
+<%@include file="../header2.jsp" %> 
 <div class="container mb-5 mt-5 text-secondary">
 <c:if test="${msg!=null}">${msg}</c:if>
 <h5>
@@ -209,7 +159,56 @@ function like_func(){
 
 </pre>
 <%@include file="../footer.jsp" %>
-
+<script>
+function like_func(){
+	if(${sessionScope.m_id == null}){
+		Swal.fire({ 
+			icon: 'warning', // Alert 타입 
+			title: '좋아요', // Alert 제목 
+			text: '로그인 해주세요' // Alert 내용 
+		});
+	}else { 
+		var selB_like_check = $('#b_like_check').val();
+// 		alert("selB_like_check->" + selB_like_check);
+		var selB_kind = ${boardDetail.b_kind};
+		var selB_no = ${boardDetail.b_no};
+		var session_id = document.getElementById('session_id').value;
+// 		alert("selB_kind->" + selB_kind + ", selB_no->" + selB_no);
+// 		alert('session_id->' + session_id);
+		
+// 		alert("좋아요를 누르시겠습니까?");
+		$.ajax(
+				{
+					url:"<%=context%>/HJBoardLike",
+					data:{b_kind : selB_kind , b_no : selB_no, m_id : session_id, b_like_check : selB_like_check}, 
+					dataType:'json', 
+					success:function(data){
+// 						alert("ajax 좋아요 y여부 data.BLikeChk->" + data.BLikeChk);
+// 						alert("ajax 좋아요 n여부 data.BLikeChk_n->" + data.BLikeChk_n);
+// 						alert("ajax 좋아요 insert 여부 data.insert_bl->" + data.insert_bl);
+// 						alert("ajax 좋아요 b_like_cnt +1여부 data.like_b->" + data.like_b);
+// 						alert("ajax 좋아요 update 여부 data.update_bl->" + data.update_bl);
+// 						alert("ajax 좋아요 b_like_check 'y' -> 'n'으로 변경 여부 data.dislike_bl->" + data.dislike_bl);
+// 						alert("ajax 좋아요b_like_cnt -1여부 data.dislike_b->" + data.dislike_b);
+// 						alert("ajax 좋아요 y or n여부 data.b_like_check->" + data.b_like_check);
+// 						alert("ajax 좋아요 총 개수 data.b_like_cnt->" + data.b_like_cnt);
+						
+						$("#b_like_check").val(data.b_like_check);
+						$("#b_like_cnt").val(data.b_like_cnt);
+						if(data.b_like_check == 'y'){
+							document.getElementById("like_img").src = "./image/like/heart_like.png";
+						}else{
+							document.getElementById("like_img").src = "./image/like/heart_dislike.png";
+						}
+					},
+					error:function(){
+						alert("좋아요 error났습니다!");
+					}
+				}
+		);
+	}
+}
+</script>
 <script>
 function boardDel(){
 	var b_kind = "${boardDetail.b_kind}";

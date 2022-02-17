@@ -6,47 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>+82Trip</title>
 <%@include file="boot.jsp" %>
-<script type="text/javascript">
-function SearchText(keyword){
-	var searchType = $("#searchType option:selected").val();
-	//alert("searchType->" + searchType);
-	var keyword = $('#keyword').val();
-	//alert("keyword->" + keyword);
-	//var b_kind = $('#b_kind').val();
-	var url = window.location.search.split("=");
-	var b_kind = url[1];
-	//alert("b_kind->" + b_kind);
-
-	if(!window.location.search.includes('b_kind')){ // 전체 검색시
-		//alert("!window.location.search.includes('b_kind')->전체 검색시");
-		location.href = "/HJBoard?searchType=" + searchType + "&keyword=" + keyword;
-	}else if(window.location.search.includes('b_kind')) { // 유형별 검색시
-		//alert("window.location.search.includes('b_kind')->유형별 검색시");
-		location.href = "/HJBoard?b_kind=" + b_kind + "&searchType=" + searchType + "&keyword=" + keyword;
-		//$('#b_kind').val("");
-	}
-	
-}
-
-function writeCheck(){
-	var session_id = document.getElementById('session_id').value;
-	var m_nickname = document.getElementById('nickname').value;
-	var m_active_kind = document.getElementById('active_kind').value;
-// 	alert("session_id->" + session_id);
-// 	alert("m_nickname->" + m_nickname);
-// 	alert("m_active_kind->" + m_active_kind);
-	
-	if(document.getElementById('session_id').value != "" && document.getElementById('active_kind').value == 1) {
-		location.href="./HJWriteForm?m_id=" + session_id + "&m_nickname=" + m_nickname;
-	} else if(document.getElementById('session_id').value == "" || document.getElementById('active_kind').value != 1) {
-		Swal.fire({ 
-			icon: 'warning', // Alert 타입 
-			title: '게시글 작성', // Alert 제목 
-			text: '활동중인 회원만 가능합니다', // Alert 내용 
-		});
-	}
-}
-</script>
 </head>
 <body>
 <%@include file="../header1.jsp" %>
@@ -270,6 +229,47 @@ function writeCheck(){
 
 </pre>
 <%@include file="../footer.jsp" %>
+<script type="text/javascript">
+function SearchText(keyword){
+	var searchType = $("#searchType option:selected").val();
+	//alert("searchType->" + searchType);
+	var keyword = $('#keyword').val();
+	//alert("keyword->" + keyword);
+	//var b_kind = $('#b_kind').val();
+	var url = window.location.search.split("=");
+	var b_kind = url[1];
+	//alert("b_kind->" + b_kind);
+
+	if(!window.location.search.includes('b_kind')){ // 전체 검색시
+		//alert("!window.location.search.includes('b_kind')->전체 검색시");
+		location.href = "/HJBoard?searchType=" + searchType + "&keyword=" + keyword;
+	}else if(window.location.search.includes('b_kind')) { // 유형별 검색시
+		//alert("window.location.search.includes('b_kind')->유형별 검색시");
+		location.href = "/HJBoard?b_kind=" + b_kind + "&searchType=" + searchType + "&keyword=" + keyword;
+		//$('#b_kind').val("");
+	}
+	
+}
+
+function writeCheck(){
+	var session_id = document.getElementById('session_id').value;
+	var m_nickname = document.getElementById('nickname').value;
+	var m_active_kind = document.getElementById('active_kind').value;
+// 	alert("session_id->" + session_id);
+// 	alert("m_nickname->" + m_nickname);
+// 	alert("m_active_kind->" + m_active_kind);
+	
+	if(document.getElementById('session_id').value != "" && document.getElementById('active_kind').value == 1) {
+		location.href="./HJWriteForm?m_id=" + session_id + "&m_nickname=" + m_nickname;
+	} else if(document.getElementById('session_id').value == "" || document.getElementById('active_kind').value != 1) {
+		Swal.fire({ 
+			icon: 'warning', // Alert 타입 
+			title: '게시글 작성', // Alert 제목 
+			text: '활동중인 회원만 가능합니다', // Alert 내용 
+		});
+	}
+}
+</script>
 <script type="text/javascript">
 document.querySelector('#keyword').addEventListener('keypress', function (e) {
 	if (e.key === 'Enter') {

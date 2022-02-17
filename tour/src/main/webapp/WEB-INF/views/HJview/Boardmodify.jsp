@@ -9,43 +9,6 @@
 <style>
 .select_img img{margin: 20px 0;}
 </style>
-<script>
- $(document).ready(function(){
- 	$("#checkLock").change(function(){
-//  		alert("비밀글 여부를 변경합니다");
-         if($("#checkLock").is(":checked")){
-            $("#b_lock").val("y");
-         }else{
-            $("#b_lock").val("n");
-         }
-         var b_lock = $("#b_lock").val();
-//          alert("b_lock->" + b_lock);
-     });
- 	
- 	$("select[name=b_kind]").change(function(){
- 		var b_kind = $(this).val(); //value값 가져오기
-//  		alert("b_kind->" + b_kind); 
- 		if(b_kind == '1'){
- 			$("#b_kind").val("1");
-//  			alert("b_kind -> 1로 변경");
- 		}else if(b_kind == '2'){
- 			$("#b_kind").val("2");
-//  			alert("b_kind -> 2로 변경");
- 		}else if(b_kind == '3'){
- 			$("#b_kind").val("3");
-//  			alert("b_kind -> 3로 변경");
- 		}else if(b_kind == '4'){
- 			$("#b_kind").val("4");
-//  			alert("b_kind -> 4로 변경");
- 			
-// 			alert("b_notice -> 2로 변경");
-			$("#b_notice").val("2");			
- 		}else{
- 			$("#b_notice").val("1");
- 		}
- 	});
- });
-</script>
 </head>
 <body>
 <%@include file="../header1.jsp" %>
@@ -156,6 +119,43 @@
 
 </pre>
 <%@include file="../footer.jsp" %>
+<script>
+ $(document).ready(function(){
+ 	$("#checkLock").change(function(){
+//  		alert("비밀글 여부를 변경합니다");
+         if($("#checkLock").is(":checked")){
+            $("#b_lock").val("y");
+         }else{
+            $("#b_lock").val("n");
+         }
+         var b_lock = $("#b_lock").val();
+//          alert("b_lock->" + b_lock);
+     });
+ 	
+ 	$("select[name=b_kind]").change(function(){
+ 		var b_kind = $(this).val(); //value값 가져오기
+//  		alert("b_kind->" + b_kind); 
+ 		if(b_kind == '1'){
+ 			$("#b_kind").val("1");
+//  			alert("b_kind -> 1로 변경");
+ 		}else if(b_kind == '2'){
+ 			$("#b_kind").val("2");
+//  			alert("b_kind -> 2로 변경");
+ 		}else if(b_kind == '3'){
+ 			$("#b_kind").val("3");
+//  			alert("b_kind -> 3로 변경");
+ 		}else if(b_kind == '4'){
+ 			$("#b_kind").val("4");
+//  			alert("b_kind -> 4로 변경");
+ 			
+// 			alert("b_notice -> 2로 변경");
+			$("#b_notice").val("2");			
+ 		}else{
+ 			$("#b_notice").val("1");
+ 		}
+ 	});
+ });
+</script>
  <script>
   $("#filename").change(function(){
    if(this.files && this.files[0]) {
