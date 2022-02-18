@@ -12,10 +12,10 @@
 <%@include file="../header2.jsp" %>
 <div class="container mt-3 mb-3 table-bordered">
    <h2 id="board" class="mt-5 mb-3" style="color: #75CFB8"><b>게시판</b></h2>
-	<label><a style="background-color: #BBDFC8;" class="btn btn-outline-light text-white" value="a"  id="all"    onclick="location.href = '/HJBoard?&m_id=${member.m_id}'">전체</a></label>
-	<label><a style="background-color: #BBDFC8;" class="btn btn-outline-light text-white" value="1"  id="free"   onclick="location.href = '/HJBoard?b_kind=1&m_id=${member.m_id}'">자유</a></label>
-	<label><a style="background-color: #BBDFC8;" class="btn btn-outline-light text-white" value="2"  id="review" onclick="location.href = '/HJBoard?b_kind=2&m_id=${member.m_id}'">후기</a></label>
-	<label><a style="background-color: #BBDFC8;" class="btn btn-outline-light text-white" value="3"  id="qna"    onclick="location.href = '/HJBoard?b_kind=3&m_id=${member.m_id}'">QnA</a></label>
+	<label><a class="btn btn-outline-secondary" value="a"  id="all"    onclick="location.href = '/HJBoard?&m_id=${member.m_id}'">전체</a></label>
+	<label><a class="btn btn-outline-secondary" value="1"  id="free"   onclick="location.href = '/HJBoard?b_kind=1&m_id=${member.m_id}'">자유</a></label>
+	<label><a class="btn btn-outline-secondary" value="2"  id="review" onclick="location.href = '/HJBoard?b_kind=2&m_id=${member.m_id}'">후기</a></label>
+	<label><a class="btn btn-outline-secondary" value="3"  id="qna"    onclick="location.href = '/HJBoard?b_kind=3&m_id=${member.m_id}'">QnA</a></label>
 	
 	<a class="mt-4 text-secondary" style="float:right; text-decoration:none;" readonly>총 <b style="color: #FFC478">${total}</b>건의 글이 등록되었습니다.</a>
 	<c:set var="num" value="${pg.total-pg.start+1}"></c:set>
@@ -26,7 +26,7 @@
 <input type="hidden" id="kind" value="${member.m_kind}">
 <input type="hidden" id="active_kind" value="${member.m_active_kind}">
 <table class="table table-hover mt-3">
-    <thead style="background:#F0E5D8; ">
+    <thead style="background: linear-gradient(to right, #75CFB8, #BBDFC8, #F0E5D8, #FFC478);">
       <tr style="text-align: center;">
         <th class="col-sm-1">번호</th>
         <th class="col-sm-7">제목</th>
@@ -202,7 +202,7 @@
 <table style="border-color: lightgray;">
 <tr>
 <th>
-  <select name="searchType" id="searchType" type="button" class="btn btn-outline-white dropdown-toggle" data-bs-toggle="dropdown" style="color: #75CFB8;">
+  <select name="searchType" id="searchType" type="button" class="btn btn-outline-white dropdown-toggle text-secondary" data-bs-toggle="dropdown">
     <option value="b_title" <c:if test="${searchType=='b_title'}">selected</c:if>>제목에서</option>
     <option value="b_contents" <c:if test="${searchType=='b_contents'}">selected</c:if>>본문에서</option>
     <option value="m_nickname" <c:if test="${searchType=='m_nickname'}">selected</c:if>>글쓴이에서</option>
@@ -210,7 +210,7 @@
 </th>
 <td>
 	  <input style="color: #75CFB8;" id="keyword" name="keyword" value="${keyword}" placeholder="검색어를 입력해주세요" class="btn btn-outline-white" required="required">
-	  <button style="background-color: #BBDFC8;" class="btn btn-outline-light text-white" type="button" id="btnSearch" onclick="SearchText(${keyword})">
+	  <button class="btn btn-outline-white text-secondary" type="button" id="btnSearch" onclick="SearchText(${keyword})">
 	  	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 		  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 		</svg> 검색

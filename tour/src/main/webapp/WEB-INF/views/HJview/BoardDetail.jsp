@@ -400,9 +400,9 @@ function commentList(){
                    			}
                    		 }
 		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +'</a>';
-		                 a += '<a onclick="commentUpdate(' + bc_no + ',\''+ bc_contents +'\', \''+ bc_lock +'\');"> 수정 </a>';
-		                 a += '<a onclick="commentDelete(' + bc_no + ', '+ bc_Group + ', ' + bc_Step +');"> 삭제 </a>';
-		                 a += '<a onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
+		                 a += '<a class="text-secondary" style="text-decoration: none;" onclick="commentUpdate(' + bc_no + ',\''+ bc_contents +'\', \''+ bc_lock +'\');"> 수정 </a>';
+		                 a += '<a class="text-secondary" style="text-decoration: none;" onclick="commentDelete(' + bc_no + ', '+ bc_Group + ', ' + bc_Step +');"> 삭제 </a>';
+		                 a += '<a class="text-secondary" style="text-decoration: none;" onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
 		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary">';
                     	 if(bc_Indent > 0){
                     			for (let i = 0; i < bc_Indent; i++){ 
@@ -423,7 +423,7 @@ function commentList(){
                    			}
                     	 }
  		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +' </a>';
- 		                 a += '<a onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
+ 		                 a += '<a class="text-secondary" style="text-decoration: none;" onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
  		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary">';
                     	 if(bc_Indent > 0){
                     			for (let i = 0; i < bc_Indent; i++){ 
@@ -484,9 +484,9 @@ function commentList(){
                    			}
                     	 }
 		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +' </a>';
-		                 a += '<a onclick="commentUpdate(' + bc_no + ',\''+ bc_contents +'\', \''+ bc_lock +'\');"> 수정 </a>';
-		                 a += '<a onclick="commentDelete(' + bc_no + ', '+ bc_Group + ', ' + bc_Step +');"> 삭제 </a>';
-		                 a += '<a onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
+		                 a += '<a class="text-secondary" style="text-decoration: none;" onclick="commentUpdate(' + bc_no + ',\''+ bc_contents +'\', \''+ bc_lock +'\');"> 수정 </a>';
+		                 a += '<a class="text-secondary" style="text-decoration: none;" onclick="commentDelete(' + bc_no + ', '+ bc_Group + ', ' + bc_Step +');"> 삭제 </a>';
+		                 a += '<a class="text-secondary" style="text-decoration: none;" onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
 		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary"> ';
                     	 if(bc_Indent > 0){
                     			for (let i = 0; i < bc_Indent; i++){ 
@@ -527,7 +527,7 @@ function commentList(){
                    			}
                     	 }
  		                 a += '&nbsp;<b>' + m_nickname + '</b><a class="text-secondary" style="float: right; text-decoration: none;"> '+ date +' </a>';
- 		                 a += '<a onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
+ 		                 a += '<a class="text-secondary" style="text-decoration: none;" onclick="commentReply(' + bc_no + ', '+ bc_Group +', '+ bc_Step +', '+ bc_Indent +');"> 답변  </a> </div>';
  		                 a += '<div class="commentContent' + bc_no + '"> <p class="text-secondary"> ';
                     	 if(bc_Indent > 0){
                     			for (let i = 0; i < bc_Indent; i++){ 
