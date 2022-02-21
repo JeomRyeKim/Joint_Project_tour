@@ -1,6 +1,6 @@
 # http port set
 server:
-  port: 8888
+  port: 9000
 
 
 spring:

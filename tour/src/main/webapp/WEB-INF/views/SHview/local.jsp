@@ -7,17 +7,18 @@
 <title>지역 화면</title>
 </head>
 <style>
-h3 {
-	padding-top: 20px;
-	padding-bottom:10px;
+h1 {
+	padding-top: 80px;
+	padding-bottom: 20px;
 	text-align: center;
 }
 
 .swiper-container {
-	height: 400px;
-	border: 5px solid silver;
-	border-radius: 7px;
-	box-shadow: 0 0 20px #ccc inset;
+	width: 80%;
+	height: 380px;
+	border: 3px solid #BBDFC8;
+	border-radius: 30px;
+	box-shadow: 0 0 20px #BBDFC8 inset;
 	padding-bottom: 20px;
 }
 
@@ -30,70 +31,101 @@ h3 {
 	max-width: 100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 	/* 이 예제에서 필요해서 설정했습니다. 상황에따라 다를 수 있습니다. */
 	height: 70%;
-	width: 80%;
+	width: 70%;
+	border-radius: 5px;
 }
-
+.swiper-slide a{
+	font-size: 20px;
+}
 h2 {
 	padding-bottom: 5px;
 	text-align: center;
 }
-.wrapper{
-/*     height:700px; */
-    /* background-color: lightgray; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.item {
+	width: 600px;
+	height: 400px;
 }
-.container1{
-    width:600px;
-    height:400px;
-    position: relative;
-    overflow: hidden;
+
+.index_category_container {
+	width: 80%;
+	margin: auto;
 }
-.slider{
-    display: flex;
-    position:absolute;
-    top:0;
-    left:0;
-    -webkit-transition: all 0.25s cubic-bezier(1, .01, .32, 1);
-    -o-transition: all 0.25s cubic-bezier(1, .01, .32, 1);
-    transition: all 0.25s cubic-bezier(1, .01, .32, 1);
+
+.local_main_image {
+	width: 80%;
+	margin: auto;
+	height: 450px;
+
 }
-.item{
-    width:600px;
-    height:400px;
+
+.local_main_container {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	grid-template-columns: 1.5fr 1fr;
+	gap: 10px 10px;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1.5fr 1fr;
+}
+
+#item1 {
+	grid-row: 1/3;
+	width: 100%;
+	height: 100%;
+}
+
+.local_item {
+	position: relative;
+}
+
+.item_image {
+	object-fit: cover;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 5px;
 }
 
 </style>
 <body>
 	<%@include file="../header1.jsp"%>
 	<%@include file="../header2.jsp"%>
+
+
+
+
 	<div class="content">
-		<h2>${localCon.c_local} 둘러보기</h2>
- 		<div class="wrapper">
-	        <div class="container1">
-	            <div class="slider">
-	              <div>
-	             	 <img class="item" src="resources/image/대표이미지/${localCon.c_local}1.jpg">
-				  </div>
-	              <div>
-	              	<img class="item" src="resources/image/대표이미지/${localCon.c_local}2.jpg">
-				  </div>
-	              <div>
-	             	<img class="item" src="resources/image/대표이미지/${localCon.c_local}3.jpg">
-				  </div>
-	            </div>
-	        </div>
-    	</div>
-		<h3>지역 관광지!!</h3>
-		<div style="text-align:right;"><a href="localAllList?c_category=관광지&c_local=${localCon.c_local}">전체보기</a></div>
+		<h1>${localCon.c_local} 둘러보기</h1>
+		<div class="local_main_image">
+			<div class="local_main_container">
+				<div class="local_item" id="item1">
+					<img class="item_image" src="resources/image/대표이미지/${localCon.c_local}1.jpg">
+				</div>
+				<div class="local_item">
+					<img class="item_image"
+						src="resources/image/대표이미지/${localCon.c_local}2.jpg">
+				</div>
+				<div class="local_item">
+					<img class="item_image"
+						src="resources/image/대표이미지/${localCon.c_local}3.jpg">
+				</div>
+			</div>
+		</div>
+		<div class="index_category_container">
+			<h1>${localCon.c_local} 관광지</h1>
+			<div style="text-align: right;">
+				<a href="localAllList?c_category=관광지&c_local=${localCon.c_local}" style="padding-right: 10px;">전체보기</a>
+			</div>
+		</div>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<c:forEach var="tour" items="${localTourList}">
 					<div class="swiper-slide">
-						<a href="detail?c_no=${tour.c_no}"> 
-							<span style="display: block; padding: 10px;">${tour.c_title}</span> 
-							<img src="resources/image/${tour.c_local}/${tour.c_image1}">
+						<a href="detail?c_no=${tour.c_no}&c_local=${tour.c_local}"> <span
+							style="display: block; padding:20px 10px;">${tour.c_title}</span> <img
+							src="resources/image/${tour.c_local}/${tour.c_image1}">
 						</a>
 					</div>
 
@@ -107,16 +139,19 @@ h2 {
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
 		</div>
-		
-		<h3>지역 숙소!!</h3>
-		<div style="text-align:right;"><a href="localAllList?c_category=숙소&c_local=${localCon.c_local}">전체보기</a></div>
+		<div class="index_category_container">
+			<h1>${localCon.c_local} 숙소</h1>
+			<div style="text-align: right;">
+				<a href="localAllList?c_category=숙소&c_local=${localCon.c_local}" style="padding-right: 10px;">전체보기</a>
+			</div>
+		</div>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<c:forEach var="hotel" items="${localHotelList}">
 					<div class="swiper-slide">
-						<a href="detail?c_no=${hotel.c_no}"> 
-							<span style="display: block; padding: 10px;">${hotel.c_title}</span> 
-							<img src="resources/image/${hotel.c_local}/${hotel.c_image1}">
+						<a href="detail?c_no=${hotel.c_no}&c_local=${hotel.c_local}"> <span
+							style="display: block; padding:20px 10px;">${hotel.c_title}</span> <img
+							src="resources/image/${hotel.c_local}/${hotel.c_image1}">
 						</a>
 					</div>
 
@@ -130,16 +165,19 @@ h2 {
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
 		</div>
-
-		<h3>지역 맛집!!</h3>
-		<div style="text-align:right;"><a href="localAllList?c_category=음식점&c_local=${localCon.c_local}">전체보기</a></div>
+		<div class="index_category_container">
+			<h1>${localCon.c_local} 맛집</h1>
+			<div style="text-align: right;">
+				<a href="localAllList?c_category=음식점&c_local=${localCon.c_local}" style="padding-right: 10px;">전체보기</a>
+			</div>
+		</div>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<c:forEach var="food" items="${localFoodList}">
 					<div class="swiper-slide">
-						<a href="detail?c_no=${food.c_no}"> 
-							<span style="display: block; padding: 10px;">${food.c_title}</span> 
-							<img src="resources/image/${food.c_local}/${food.c_image1}">
+						<a href="detail?c_no=${food.c_no}&c_local=${food.c_local}"> <span
+							style="display: block; padding:20px 10px;">${food.c_title}</span> <img
+							src="resources/image/${food.c_local}/${food.c_image1}">
 						</a>
 					</div>
 
@@ -155,34 +193,10 @@ h2 {
 		</div>
 	</div>
 	<%@include file="../footer.jsp"%>
-	
-    
-	
+
+
+
 	<script type="text/javascript">
-		var slideWrapper = document.querySelector('.container1');
-		var slides = document.querySelectorAll('.item');
-		var totalSlides = slides.length; // item의 갯수
-		
-		
-		var sliderWidth = slideWrapper.clientWidth; // container의 width
-		var slideIndex = 0;
-		var slider = document.querySelector('.slider');
-		
-		slider.style.width = sliderWidth * totalSlides + 'px';
-		
-		showSlides()
-		
-		function showSlides() {
-		    for(var i=0;i<slides.length;i++){
-		        slider.style.left = -(sliderWidth * slideIndex) + 'px';    
-		    }
-		    slideIndex++;
-		    if (slideIndex === totalSlides) {
-		        slideIndex = 0;
-		    }
-		    setTimeout(showSlides, 3000); 
-		}
-	
 		new Swiper('.swiper-container', {
 
 			slidesPerView : 3, // 동시에 보여줄 슬라이드 갯수

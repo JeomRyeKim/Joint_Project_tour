@@ -11,8 +11,9 @@
 </style>
 </head>
 <body>
-<%@include file="../header1.jsp" %>
-<%@include file="../header2.jsp" %>
+<div class="header" style="position: sticky; width: 100%; z-index: 10; top: 0px; background-color: white; margin-top: -50px;">
+	<%@include file="../header1.jsp" %>
+</div>
 <div class="container mt-5">
 <h4><b style="color: #75CFB8">게시판 글수정</b></h4>
 <hr>

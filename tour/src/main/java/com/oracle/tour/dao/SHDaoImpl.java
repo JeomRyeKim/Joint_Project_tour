@@ -242,7 +242,12 @@ public class SHDaoImpl implements SHDao {
 		System.out.println("SHDaoImpl deleteCommand Start..");
 		int result = 0;
 		try {
-			result = session.delete("SHDeleteCommand",com);
+			Command command = session.selectOne("SHSelectOneList",com);
+			if(command.getCom_Step()==0) {
+				result = session.delete("SHDeleteAllCommand",command);
+			}else {
+				result = session.delete("SHDeleteCommand",command);
+			}
 		} catch (Exception e) {
 			System.out.println("ShDaoImpl deleteCommand ERROR -> "+e.getMessage());
 		}
@@ -536,6 +541,42 @@ public class SHDaoImpl implements SHDao {
 			System.out.println("SHDaoImpl getCountSearchList Error->"+e.getMessage());
 		}
 		return result;
+	}
+
+	@Override
+	public int getCommandCnt(String c_no) {
+		System.out.println("SHDaoImpl getCommandCnt Start..");
+		int result = 0;
+		try {
+			result = session.selectOne("SHGetCommandCnt",c_no);
+		} catch (Exception e) {
+			System.out.println("SHDaoImpl getCommandCnt Error->"+e.getMessage());
+		}
+		return result;
+	}
+
+	@Override
+	public List<Contents> getAllLocalList(String c_local) {
+		System.out.println("SHDaoImpl getAllLocalList Start..");
+		List<Contents> localList = null;
+		try {
+			localList = session.selectList("SHAllLocalList",c_local);
+		} catch (Exception e) {
+			System.out.println("SHDaoImpl getAllLocalList Error->" + e.getMessage());
+		}
+		return localList;
+	}
+
+	@Override
+	public Contents getCountAllCon(Contents con) {
+		System.out.println("SHDaoImpl getCountAllCon Start..");
+		Contents con1 = null;
+		try {
+			con1 = session.selectOne("SHGetCountAllCon",con);
+		} catch (Exception e) {
+			System.out.println("SHDaoImpl getCountAllCon Error->" + e.getMessage());
+		}
+		return con1;
 	}
 
 

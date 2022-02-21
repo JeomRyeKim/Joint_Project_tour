@@ -6,7 +6,7 @@
 		window.onload = function(){
 		if(${result}==1){
 			alert("등록 성공!");
-			window.location.href="/";
+			window.location.href="detail?c_no=${con1.c_no}&c_local=${con.c_local}";
 			
 		}else{
 			alert("등록 실패..")

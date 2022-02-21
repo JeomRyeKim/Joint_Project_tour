@@ -15,8 +15,9 @@ input:focus {outline:none;}
 %>
 </head>
 <body>
-<%@include file="../header1.jsp" %> 
-<%@include file="../header2.jsp" %> 
+<div class="header" style="position: sticky; width: 100%; z-index: 10; top: 0px; background-color: white; margin-top: -50px;">
+	<%@include file="../header1.jsp" %>
+</div>
 <div class="container mb-5 mt-5 text-secondary">
 <c:if test="${msg!=null}">${msg}</c:if>
 <h5>
@@ -230,11 +231,12 @@ function boardDel(){
         cancelButtonText: '아니오'
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(
-                '게시글 삭제',
-                '삭제 처리 되었습니다',
-                'success'
-            )
+        	alert("게시글이 삭제 되었습니다.");
+//             Swal.fire(
+//                 '게시글 삭제',
+//                 '삭제 처리 되었습니다',
+//                 'success'
+//             )
         	location.href="HJBoardDelete?b_kind="+b_kind+"&b_no="+b_no+"&m_id="+m_id;
         }
     });

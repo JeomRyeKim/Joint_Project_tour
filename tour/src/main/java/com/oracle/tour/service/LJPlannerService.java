@@ -9,6 +9,7 @@ import com.oracle.tour.domain.Planner;
 import com.oracle.tour.dto.PlannerDTO;
 
 /*
+ * 이진호
  * 플래너 Service
  */
 public interface LJPlannerService {

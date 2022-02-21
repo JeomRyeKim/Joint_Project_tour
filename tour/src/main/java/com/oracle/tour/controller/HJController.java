@@ -374,12 +374,14 @@ public class HJController {
 		System.out.println("HJController boardReply b_filename->" + b_filename);
 		
 		// 파일 업로드
-		if(b_filename != null) {
-		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/image/board");
-		String savedName = uploadFile(filename.getOriginalFilename(), filename.getBytes(), uploadPath);
-		logger.info("savedName : " + savedName);
-		board.setB_filename(savedName);
-		System.out.println("HJController boardReply board.getB_lock()->" + board.getB_lock());
+		if(!b_filename.isEmpty()) {
+			System.out.println("HJController HJboardReply 업로드된 그림 파일이 있음!");
+			
+			String uploadPath = request.getSession().getServletContext().getRealPath("/resources/image/board");
+			String savedName = uploadFile(filename.getOriginalFilename(), filename.getBytes(), uploadPath);
+			logger.info("savedName : " + savedName);
+			board.setB_filename(savedName);
+			System.out.println("HJController boardReply board.getB_lock()->" + board.getB_lock());
 		}
 		
 		// 새로 입력하는 댓글이 기존의 댓글과 b_Group =같고   &  기존의 댓글보다 b_Step >작으면  =>  b_Step + 1

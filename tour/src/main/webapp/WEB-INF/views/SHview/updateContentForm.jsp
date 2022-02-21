@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>컨텐츠 수정</title>
 <style>
 .container1 {
 	display: flex;
@@ -15,15 +15,19 @@
 	margin: auto;
 	border: none;
 }
+.update_image{
+	width:400px;
+	height:200px;
+}
 </style>
 </head>
 <body>
 	<%@include file="../header1.jsp"%>
 	<%@include file="../header2.jsp"%>
-	<h1>컨텐츠 수정</h1>
+	<h1 style="text-align: center; padding: 50px 0;">컨텐츠 수정</h1>
 	<div class="container1">
 		<div class="form_container">
-			<form action="/updateContent" method="post" enctype="multipart/form-data" target="myBatisFrame">
+			<form action="/updateContent" method="post" enctype="multipart/form-data" target="_self">
 				<input type="hidden" name="c_image1" value="${con.c_image1}">
 				<input type="hidden" name="c_image2" value="${con.c_image2}">
 				<input type="hidden" name="c_image3" value="${con.c_image3}">
@@ -89,7 +93,7 @@
 					</tr>
 					<tr>
 						<td>현재 이미지:</td>
-						<td><img src="resources/image/${con.c_local}/${con.c_image1}"></td>
+						<td><img class="update_image" src="resources/image/${con.c_local}/${con.c_image1}"></td>
 					</tr>
 					<tr>
 						<td>이미지2:</td>
@@ -97,7 +101,7 @@
 					</tr>
 					<tr>
 						<td>현재 이미지:</td>
-						<td><img src="resources/image/${con.c_local}/${con.c_image2}"></td>
+						<td><img class="update_image" src="resources/image/${con.c_local}/${con.c_image2}"></td>
 					</tr>
 					<tr>
 						<td>이미지3:</td>
@@ -105,7 +109,7 @@
 					</tr>
 					<tr>
 						<td>현재 이미지:</td>
-						<td><img src="resources/image/${con.c_local}/${con.c_image3}"></td>
+						<td><img class="update_image" src="resources/image/${con.c_local}/${con.c_image3}"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" value="수정하기" ></td>

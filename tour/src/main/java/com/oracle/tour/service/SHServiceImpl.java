@@ -260,6 +260,21 @@ public class SHServiceImpl implements SHService {
 		int result = shDao.getCountSearchList(search);
 		return result;
 	}
+	@Override
+	public int getCommandCnt(String c_no) {
+		int result = shDao.getCommandCnt(c_no);
+		return result;
+	}
+	@Override
+	public List<Contents> getAllLocalList(String c_local) {
+		List<Contents> localList = shDao.getAllLocalList(c_local);
+		return localList;
+	}
+	@Override
+	public Contents getCountAllCon(Contents con) {
+		Contents con1 = shDao.getCountAllCon(con);
+		return con1;
+	}
 
 
 	

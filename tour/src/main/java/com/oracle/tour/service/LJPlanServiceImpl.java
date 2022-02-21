@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /*
+ * 이진호
  * 플랜 Service 구현 클래스
  */
 @Service

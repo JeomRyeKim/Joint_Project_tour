@@ -38,20 +38,16 @@ public class SHController {
 		System.out.println("controller index Start");
 		// 관광지 리스트 뽑기
 		List<Contents> tourList = shS.getTourList();
-		System.out.println("SHController tourList.size->" + tourList.size());
 		model.addAttribute("tourList", tourList);
 		// 숙소 리스트 뽑기
 		List<Contents> hotelList = shS.getHotelList();
-		System.out.println("SHController hotelList.size->" + hotelList.size());
 		model.addAttribute("hotelList", hotelList);
 		// 음식점 리스트 뽑기
 		List<Contents> foodList = shS.getFoodList();
-		System.out.println("SHController foodList.size->" + foodList.size());
 		model.addAttribute("foodList", foodList);
 
 		// 게시글 리스트 뽑기
 		List<Board> boardList = shS.getBoardList();
-		System.out.println("SHController getBoardList.size->" + boardList.size());
 		model.addAttribute("boardList", boardList);
 
 		HttpSession session = request.getSession();
@@ -67,19 +63,15 @@ public class SHController {
 		System.out.println("controller local Start");
 		// 지역 리스트 뽑기
 		Contents localCon = shS.getLocalCon(c_local);
-		System.out.println("SHController getLocalCon.getC_local->" + localCon.getC_local());
 		model.addAttribute("localCon", localCon);
 
 		List<Contents> localTourList = shS.getlocalTourList(c_local);
-		System.out.println("SHController localTourList.size->" + localTourList.size());
 		model.addAttribute("localTourList", localTourList);
 
 		List<Contents> localHotelList = shS.getlocalHotelList(c_local);
-		System.out.println("SHController localHotelList.size->" + localHotelList.size());
 		model.addAttribute("localHotelList", localHotelList);
 
 		List<Contents> localFoodList = shS.getlocalFoodList(c_local);
-		System.out.println("SHController localFoodList.size->" + localFoodList.size());
 		model.addAttribute("localFoodList", localFoodList);
 
 		return "SHview/local";
@@ -87,22 +79,28 @@ public class SHController {
 
 	// 컨텐츠 상세보기
 	@RequestMapping("/detail")
-	public String godetail(Model model, String c_no, HttpServletRequest request) {
+	public String godetail(Model model, String c_no, String c_local, HttpServletRequest request) {
 		System.out.println("SHcontroller detail Start");
 		Contents detailContent = shS.getDetailContent(c_no);
 		model.addAttribute("detailCon", detailContent);
 
 		List<Command> comList = shS.getCommandList(c_no);
-		System.out.println("SHController comList.size -> " + comList.size());
 		model.addAttribute("comList", comList);
-
+		
+		//해당 지역 리스트 뽑기
+		List<Contents> localCon = shS.getAllLocalList(c_local);
+		model.addAttribute("localCon", localCon);
+		
+		//댓글 개수 
+		int commandCnt = shS.getCommandCnt(c_no);
+		model.addAttribute("commandCnt",commandCnt);
+		
 		HttpSession session = request.getSession();
 		String m_id = (String) session.getAttribute("m_id");
 		System.out.println("MEMBER ID :" + m_id);
 		session.setAttribute("m_id", m_id);
 
 		int likeCnt = shS.getLikeCnt(c_no);
-		System.out.println("likeCnt :" + likeCnt);
 		model.addAttribute("likeCnt", likeCnt);
 
 		
@@ -127,15 +125,13 @@ public class SHController {
 		System.out.println("SHController AllList Start..");
 
 		List<Contents> allList = shS.getAllList(c_category);
-		System.out.println("SHController allList.size ->" + allList.size());
 		model.addAttribute("allList", allList);
 
 		int total = shS.getCountAllList(c_category);
-		System.out.println("SHController CountAllList size->" + total);
-		if (total % 4 == 0) {
-			total = (total / 4);
+		if (total % 3 == 0) {
+			total = (total / 3);
 		} else {
-			total = total / 4 + 1;
+			total = total / 3 + 1;
 		}
 
 		model.addAttribute("total", total);
@@ -155,10 +151,10 @@ public class SHController {
 		int total = shS.getCountLocalAllList(con);
 		System.out.println("SHController CountLocalAllList size->" + total);
 
-		if (total % 4 == 0) {
-			total = (total / 4);
+		if (total % 3 == 0) {
+			total = (total / 3);
 		} else {
-			total = total / 4 + 1;
+			total = total / 3 + 1;
 		}
 		model.addAttribute("total", total);
 		return "SHview/localAllList";
@@ -166,8 +162,12 @@ public class SHController {
 
 	// 컨텐츠등록페이지로 이동
 	@RequestMapping("/uploadContentForm")
-	public String uploadContentView() {
-
+	public String uploadContentView(HttpServletRequest request,Model model) {
+		HttpSession session = request.getSession();
+		String m_id = (String) session.getAttribute("m_id");
+		System.out.println("MEMBER ID :" + m_id);
+		model.addAttribute("m_id", m_id);
+		
 		return "SHview/uploadContentForm";
 	}
 
@@ -193,6 +193,12 @@ public class SHController {
 		int result = shS.uploadContent(con);
 		System.out.println("SHController uploadContent result->"+result);
 		model.addAttribute("result",result);
+		
+		Contents con1 = shS.getCountAllCon(con);
+		model.addAttribute("con",con);
+		model.addAttribute("con1",con1);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!"+con1.getC_no());
+		
 
 		return "SHview/uploadContentResult";
 	}
@@ -218,10 +224,15 @@ public class SHController {
 	
 	//컨텐츠 수정 폼으로 이동(관리자)
 	@RequestMapping("/updateContentForm")
-	public String updateContent(String c_no,Model model) {
+	public String updateContent(String c_no,Model model,HttpServletRequest request) {
 		System.out.println("SHController updateContentForm Start..");
 		Contents con = shS.getDetailContent(c_no);
 		model.addAttribute("con",con);
+		
+		HttpSession session = request.getSession();
+		String m_id = (String) session.getAttribute("m_id");
+		System.out.println("MEMBER ID :" + m_id);
+		model.addAttribute("m_id", m_id);
 		
 		List<Contents> localList = shS.getUpdateLocalList();
 		model.addAttribute("local",localList);
@@ -257,7 +268,9 @@ public class SHController {
 		
 		int result = shS.updateContent(con); 
 		model.addAttribute("result",result);
-		 
+		model.addAttribute("con",con);
+		System.out.println(con.getC_no());
+		
 		return "SHview/updateContentResult";
 	}
 	
@@ -270,10 +283,10 @@ public class SHController {
 		model.addAttribute("search",searchList);
 		
 		int total = shS.getCountSearchList(search);
-		if (total % 4 == 0) {
-			total = (total / 4);
+		if (total % 3 == 0) {
+			total = (total / 3);
 		} else {
-			total = total / 4 + 1;
+			total = total / 3 + 1;
 		}
 
 		model.addAttribute("total", total);

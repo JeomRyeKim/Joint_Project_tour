@@ -12,7 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /*
- * 플래너 DTO 클래스
+ * 이진호
+ * 플래너 DTO
  */
 
 @Builder

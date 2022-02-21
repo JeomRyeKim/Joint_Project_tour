@@ -13,4 +13,7 @@ public class Command {
 	private int    com_Group;		// 댓글 그룹
 	private int    com_Step;		// 댓글 순서
 	private int    com_Indent;		// 댓글 들여쓰기
+	
+	//조회용
+	private String m_nickname;
 }

@@ -4,12 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${searchText} 검색</title>
 <style>
 .content-item-detail {
+	margin:auto;
+	width:80%;
 	padding: 0 10px;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns:1fr 1fr 1fr;
 	gap: 20px 10px;
 	grid-template-rows: repeat(${total},200px);
 }
@@ -17,18 +19,28 @@
 	position: relative;
 }
 
+.detail-items a{
+	text-decoration: none;
+	color: black;
+}
+
 .image_box {
 	position: absolute;
-	top: 15%;
-	left: 10%;
-	width: 80%;
-	height: 80%;
+	top: 25%;
+	left: 15%;
+	width: 70%;
+	height: 70%;
 	object-fit: cover;
+	border-radius: 5px;
 }
 
 .content_title {
 	display: block;
 	text-align: center;
+	font-size: 20px;
+}
+h1{
+	padding: 50px 0;
 }
 </style>
 </head>
@@ -36,7 +48,7 @@
 	<%@include file="../header1.jsp"%>
 	<%@include file="../header2.jsp"%>
 
-	<h2 style="text-align: center; margin: 20px 0px;">${searchText}에 대한 검색결과</h2>
+	<h1 style="text-align: center; margin: 20px 0px;">${searchText}에 대한 검색결과</h1>
 
 	<div class="content-item-detail">
 		<c:forEach var="search" items="${search}">

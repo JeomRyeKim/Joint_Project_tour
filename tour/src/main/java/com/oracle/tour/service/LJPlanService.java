@@ -8,10 +8,8 @@ import com.oracle.tour.dto.PlanDTO;
 import com.oracle.tour.dto.PlannerDTO;
 
 /*
+ * 이진호
  * 플랜 Service
- *
- * @Author 백정연
- * @Date 2021/08/07
  */
 public interface LJPlanService {
     List<PlanDTO> selectPlans(PlannerDTO planner);

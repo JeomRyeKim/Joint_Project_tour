@@ -89,5 +89,11 @@ public interface SHDao {
 
 	int getCountSearchList(String search);
 
+	int getCommandCnt(String c_no);
+
+	List<Contents> getAllLocalList(String c_local);
+
+	Contents getCountAllCon(Contents con);
+
 
 }

@@ -78,7 +78,11 @@
 
 	<select id="SHCommandList" parameterType="java.lang.String"
 		resultType="Command">
-		select * from command where c_no = #{c_no} order by com_group desc ,com_Step asc
+		select c.c_no, c.com_no, c.m_id , c.com_contents, c.com_group, c.com_step, c.com_indent, m.m_nickname
+		from command c , member m
+		where c_no = #{c_no} and c.m_id = m.m_id
+		order by com_group 
+		desc ,com_Step asc
 	</select>
 
 	<insert id="SHWriteDetailCom" parameterType="Command">
@@ -90,6 +94,11 @@
 		delete from command
 		where com_no = #{com_no} and m_id = #{m_id}
 	</delete>
+	
+	<delete id="SHDeleteAllCommand" parameterType="Command">
+		delete from command
+		where com_Group = #{com_Group} and m_id = #{m_id}
+	</delete>
 
 	<update id="SHUpdateCommand" parameterType="Command">
 		update command set
@@ -100,6 +109,10 @@
 	<select id="SHReplyProperty" parameterType="java.lang.String"
 		resultType="Command">
 		select * from command where com_no = #{com_no}
+	</select>
+	
+	<select id="SHSelectOneList" parameterType="Command" resultType="Command">
+		select * from command where com_no = #{com_no} and m_id=#{m_id}
 	</select>
 
 	<insert id="SHwriteReply" parameterType="Command">
@@ -227,10 +240,19 @@
 		order by c_no desc
 	</select>
 
+	<select id="SHGetCommandCnt" parameterType="java.lang.String" resultType="int">
+		select count(*)
+		from command
+		where c_no = #{c_no}
+	</select>
+	
+	<select id="SHAllLocalList" parameterType="java.lang.String" resultType="contents">
+		select * from contents where c_local = #{c_local}
+	</select>
 
-
-
-
+	<select id="SHGetCountAllCon"  parameterType="contents" resultType="contents">
+		select * from contents where c_map_x = #{c_map_x} and c_map_y = #{c_map_y}
+	</select>
 
 
 

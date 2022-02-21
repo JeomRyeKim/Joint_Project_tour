@@ -5,18 +5,32 @@
 <head>
 <meta charset="UTF-8">
 <title>메인 화면</title>
-<style>
-h3 {
-	padding-top: 20px;
-	padding-bottom:10px;
+<style> 
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*{font-family: 'InfinitySans-RegularA1';}
+
+.index_category_container h1 {
+	padding-top: 80px;
+	padding-bottom: 20px;
 	text-align: center;
 }
 
+.index_category_container {
+	width: 80%;
+	margin: auto;
+}
+
 .swiper-container {
-	height: 400px;
-	border: 5px solid silver;
-	border-radius: 7px;
-	box-shadow: 0 0 20px #ccc inset;
+	width: 80%;
+	height: 380px;
+	border: 3px solid #BBDFC8;
+	border-radius: 30px;
+	box-shadow: 0 0 20px #BBDFC8 inset;
 	padding-bottom: 20px;
 }
 
@@ -28,31 +42,68 @@ h3 {
 	box-shadow: 0 0 5px #555;
 	max-width: 100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 	/* 이 예제에서 필요해서 설정했습니다. 상황에따라 다를 수 있습니다. */
-	height: 80%;
-	width: 80%;
+	height: 70%;
+	width: 70%;
+	border-radius: 5px;
 }
+.swiper-slide a{
+	font-size: 20px;
+}
+
+.index_image {
+	width: 80%;
+	height: 90%;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.index_image img {
+	width: 100%;
+	height: 100%;
+	object-fit: absolute;
+}
+
+.content_Search {
+	position: absolute;
+	top: 8%;
+	left: 35%;
+	width: 30%;
+	height: 40px;
+	border-radius: 30px;
+	font-family: fontAwesome;
+	text-align: center;
+}
+.menu1 {
+	position: fixed;
+}
+
 </style>
 </head>
 <body>
-	<%@include file="./header1.jsp"%>
-	<%@include file="./header2.jsp"%>
-	<div class="jumbotron"
-		style="height: 150px; padding: 20px 30px; text-align: center;">
-		<h2>전국 여행 정보 !!</h2>
+	<%@include file="./indexHeader1.jsp"%>
+	<%@include file="./indexHeader2.jsp"%>
+	<div style="height: 600px; text-align: center; position: relative; width: 100%; padding-top: 30px;">
+		<div class="index_image">
+			<img src="resources/image/index.jpg">
+		</div>
 		<form action="content_Search" method="get">
-			<input type="text" name="search" placeholder="검색어를 입력하세요"
-				maxlength="20">
+			<input class="content_Search" type="text" name="search"
+				placeholder="&#xf002;어디로 가시나요?" maxlength="20">
 		</form>
 	</div>
 	<div class="content">
-		<h3>전체 관광지!!</h3>
-		<div style="text-align: right;"><a href="AllList?c_category=관광지">전체보기</a></div>
+		<div class="index_category_container">
+			<h1>전국 관광지</h1>
+			<div style="text-align: right;">
+				<a href="AllList?c_category=관광지" style="padding-right: 10px;">전체보기</a>
+			</div>
+		</div>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<c:forEach var="tour" items="${tourList}">
 					<div class="swiper-slide">
 						<a href="detail?c_no=${tour.c_no}"> 
-							<span style="display: block; padding: 10px;">${tour.c_title}</span> 
+							<span style="display: block; padding:20px 10px;">${tour.c_title}</span> 
 							<img src="resources/image/${tour.c_local}/${tour.c_image1}">
 						</a>
 					</div>
@@ -66,15 +117,19 @@ h3 {
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
 		</div>
-		<h3>전체 숙소!!</h3>
-		<div style="text-align: right;"><a href="AllList?c_category=숙소">전체보기</a></div>
+		<div class="index_category_container">
+			<h1>전국 숙소</h1>
+			<div style="text-align: right;">
+				<a href="AllList?c_category=숙소" style="padding-right: 10px;">전체보기</a>
+			</div>
+		</div>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<c:forEach var="hotel" items="${hotelList}">
 					<div class="swiper-slide">
-						<a href="detail?c_no=${hotel.c_no}"> 
-							<span style="display: block; padding: 10px;">${hotel.c_title}</span> 
-							<img src="resources/image/${hotel.c_local}/${hotel.c_image1}">
+						<a href="detail?c_no=${hotel.c_no}"> <span
+							style="display: block; padding:20px 10px;">${hotel.c_title}</span> <img
+							src="resources/image/${hotel.c_local}/${hotel.c_image1}">
 						</a>
 					</div>
 
@@ -88,15 +143,20 @@ h3 {
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
 		</div>
-		<h3>전체 맛집!!</h3>
-		<div style="text-align: right;"><a href="AllList?c_category=음식점">전체보기</a></div>
+		
+		<div class="index_category_container">
+			<h1>전국 맛집</h1>
+			<div style="text-align: right;">
+				<a href="AllList?c_category=음식점" style="padding-right: 10px;">전체보기</a>
+			</div>
+		</div>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<c:forEach var="food" items="${foodList}">
 					<div class="swiper-slide">
-						<a href="detail?c_no=${food.c_no}"> 
-							<span style="display: block; padding: 10px;">${food.c_title}</span> 
-							<img src="resources/image/${food.c_local}/${food.c_image1}">
+						<a href="detail?c_no=${food.c_no}"> <span
+							style="display: block; padding:20px 10px;">${food.c_title}</span> <img
+							src="resources/image/${food.c_local}/${food.c_image1}">
 						</a>
 					</div>
 
@@ -110,24 +170,10 @@ h3 {
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
 		</div>
-		<div class="content-item">
-			<h3 style="padding-bottom: 20px;">베스트 후기글</h3>
-			<div class="content-item-detail">
-				<c:forEach var="board" items="${boardList}" begin="0" end="3">
-					<div class="detail-items">
-						<a href="detail?b_no=${board.b_no}" class="content_title"
-							style="padding-bottom: 30px;">${board.b_title}</a> 좋아요 수 :
-						${board.b_like_cnt}<br> 조회 수 : ${board.b_hit }<br> 게시글
-						카테고리 : ${board.b_kind}
-					</div>
-				</c:forEach>
-			</div>
-		</div>
 	</div>
 	<%@include file="./footer.jsp"%>
 
-
-
+	<!-- 슬라이드 -->
 	<script type="text/javascript">
 		new Swiper('.swiper-container', {
 

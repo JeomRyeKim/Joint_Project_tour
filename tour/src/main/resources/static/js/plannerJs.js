@@ -19,7 +19,11 @@ function popupCheck(){
     var l_date = new Date(document.popupFrm.lDate.value);
 
     if(l_date<f_date){
-        alert("여행 마지막날이 시작날보다 빨라요~!");
+        Swal.fire({
+            icon: 'warning',
+            title: '시간 불일치',
+            text: '여행 마지막날이 시작날보다 빠릅니다.'
+        });
         return false;
     }else{
         return true;
@@ -94,7 +98,7 @@ function getHtml(place_name,place_y,place_x,num, data_date){
     div += " <div class=\"planI-plandetail\">";
     div += " <span class=\"planI-plandetail__span--place\" title=\"" + place_name + "\">" + place_name + "</span>";
     div += "<input type=\"time\" name=\"time\" class=\"planI-plandetail__input--time\" required >";
-    div += "<input type=\"text\" name=\"intro\" class=\"planI-plandetail__input--intro\" placeholder=\"20자 내로 메모를 입력해주세요.\"  maxlength=\"20\">";
+    div += "<input type=\"text\" name=\"intro\" class=\"planI-plandetail__input--intro\" placeholder=\"20자 내로 메모를 입력\"  maxlength=\"20\">";
     div += "<button class=\"planI-plandetail__button--blue\" onclick=\"planDelete(\'" + num +  "\')\">&times;</button></div> </div>";
 
     return div;
@@ -112,7 +116,7 @@ function planDelete(num){
     kid.detach();
 
     next_kids.each(function (index, element){
-        var url = "_image/plan/num/number" + num + ".png";
+        var url = "image/myPlanner/num/number" + num + ".png";
         $(this).find('img').attr("src", url);
 
         var btn = "planDelete(" + num + ")";

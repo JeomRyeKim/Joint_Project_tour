@@ -31,8 +31,10 @@ import javax.servlet.http.HttpSession;
 
 
 /*
+ *  이진호
  *  플래너 Controller
  */
+
 @Controller
 public class LJController {
 	private static final Logger logger = LoggerFactory.getLogger(LJController.class);

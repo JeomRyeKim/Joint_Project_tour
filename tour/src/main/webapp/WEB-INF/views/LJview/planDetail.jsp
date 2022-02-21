@@ -7,32 +7,33 @@
 </head>
 <%@include file="../bootStrap.jsp"%>
 <title>플래너 상세 목록</title>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/plannerStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/plannerJs.js"></script>
     <script>
         $(document).ready(function () {
 
-            $("#btn").click(function () { 
-                $("#popup").fadeIn();
-                // scroll 제어
-                	// fadeIn 클래스 판단 유무
-                	if($('.planD-popupcontainer').is('#popup')){
-                		$('html, body').css({'overflow': 'hidden', 'height': '100%'});
-                		$('#element').on('scroll touchmove mousewheel', function(event) {
-                		  event.preventDefault();
-                		  event.stopPropagation();
-                		  return false;
-                		});
-                	}
-            });
-
-            $("#popdown").click(function () {
-                $("#popup").fadeOut();
-                $('#element').off('scroll touchmove mousewheel');
-                $('html, body').css({'overflow': 'visible ', 'height': '100%'});
-                return true;
-            });
+        	$("#btn").click(function () {
+		        $("#popup").fadeIn();
+		        // scroll 제어
+		        	// fadeIn 클래스 판단 유무
+		        	if($('.planD-popupcontainer').is('#popup')){
+		        		$('html, body').css({'overflow': 'hidden', 'height': '100%'});
+		        		$('#element').on('scroll touchmove mousewheel', function(event) {
+		        		  event.preventDefault();
+		        		  event.stopPropagation();
+		        		  return true;
+		        		});
+		        	}
+		    });
+		
+		    $("#popdown").click(function () {
+		        $("#popup").fadeOut();
+		        $('#element').off('scroll touchmove mousewheel');
+		        $('html, body').css({'overflow': 'visible ', 'height': '100%'});
+		        return false;
+		    });
             
             
             var slide = document.querySelectorAll(".planD-map");
@@ -56,13 +57,28 @@
 
         /* 플래너 삭제하기  */
         function deletePlanner(plannerNo){
-            var result = confirm("플래너를 삭제하시겠습니까?");
-            if(result == false){
-                return false;
-            }else if(result == true){
-                window.location.href='${pageContext.request.contextPath}/plannerDelete?plannerNo='+plannerNo +'&id=${sessionScope.m_id}';
-            }
-        }
+        	Swal.fire({ 
+    			icon: 'warning', 
+        		title: '플래너를 삭제 하시겠습니까?', 
+    			text: "삭제된 플래너는 다시 되돌릴 수 없습니다.", 
+    			showCancelButton: true, 
+    			confirmButtonColor: '#3085d6', 
+    			cancelButtonColor: '#d33', 
+    			confirmButtonText: '삭제', 
+    			cancelButtonText: '취소' 
+    		}).then(function(result){ 
+	    			if (result.isConfirmed) { 
+	    			  Swal.fire( 
+	    						'플래너 삭제 완료', 
+	    						'정상적으로 삭제가 완료 되었습니다!', 
+	    						'success' 
+	    						).then(function(){
+			    				window.location.href='${pageContext.request.contextPath}/plannerDelete?plannerNo='
+			    									  +plannerNo +'&id=${sessionScope.m_id}';
+	    						});
+	    			}  
+    			});
+        };
         
         
        /* 왼쪽 메뉴 스크롤 따라 움직이기 */
@@ -70,7 +86,7 @@
             var currentPosition = parseInt($(".planL-navbox").css("top"));
             $(window).scroll(function() {
                 var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
-                $(".planL-navbox").stop().animate({"top":position+currentPosition+"px"},700);
+                $(".planL-navbox").stop().animate({"top":position+currentPosition+"px"},680);
             });
         });
         
@@ -79,29 +95,16 @@
 </head>
 <body>
 <!--  header   -->
-<header class="header" style="position: fixed; width: 100%; z-index: 10;">
+<div class="header" style="position: sticky; width: 100%; z-index: 10; top: 0px; background-color: white; margin-top: -50px;">
 	<%@include file="../header1.jsp" %>
-</header>
+</div>
 <!-- // header  -->
 
 
     <!-- container -->
     <div class="planD-container">
-
-        <!-- 내 프로필 nav -->
-        <div class="planL-navbox">
-	        <ul class="planL-navbox__ul--blue">
-	            <li class="planL-navbox__li--big"> PLanner </li>
-	            <li class="planL-navbox__li--small"><a href="${pageContext.request.contextPath}/myInfo?id=${sessionScope.m_id}" class="planL-navbox__a--blue"><img class="planL-navbox__img--small" src="image/myPlanner/person.png">&nbsp;  나의 정보</a></li>
-	            <li class="planL-navbox__li--small"><a href="${pageContext.request.contextPath}/planL?id=${sessionScope.m_id}" class="planL-navbox__a--blue"><img class="planL-navbox__img--small" src="image/myPlanner/planner.png">&nbsp;&nbsp;내 플래너</a></li>
-	        </ul>
-        </div>
-        <!-- // 내 프로필 nav-->
-
-        <!-- 플래너쪽 container -->
-        <div class="planD-planbox">
-
-            <!-- 플래너 상단 (제목)-->
+    
+    	<!-- 플래너 상단 (제목)-->
             <div class="planD-titlebox">
 				<!-- 플래너 경로 지도 부분 -->
                 <div class="planD-mapbox">
@@ -142,7 +145,7 @@
                                     path: [],
                                     strokeWeight: 3,
                                     strokeColor: '#ff0066',
-                                    strokeOpacity: 1,
+                                    strokeOpacity: 0.5,
                                     strokeStyle: 'solid'
                                 });
                                 // 마커 숫자를 위한 변수
@@ -216,9 +219,39 @@
                 </div>
                 <!-- // 플래너 경로 지도 부분-->
 			</div>
+    
+    
+		
+		<!-- 마이페이지 navbar -->
+	    <div class="planL-navbox__long" style="margin: 120px auto auto auto; height: 70%;">
+		    <div class="planL-navbox">
+		        <ul class="planL-navbox__ul--blue">
+		            <li class="planL-navbox__li--big"> Planner </li>
+		            <li class="planL-navbox__li--id">[ <a style="color: #1565C0;">${sessionScope.m_id}</a> ] 님의 플래너</li>
+		            <li class="planL-navbox__li--small"><a href="${pageContext.request.contextPath}/myInfo?id=${sessionScope.m_id}" class="planL-navbox__a--blue">
+		            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+		  					<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+						</svg>&nbsp;  마이페이지</a></li>
+		            <li class="planL-navbox__li--small"><a href="${pageContext.request.contextPath}/planL?id=${sessionScope.m_id}" class="planL-navbox__a--blue">
+		            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16" style="width: 22px; height: 22px; margin-left: 3px;">
+		  					<path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+						</svg>&nbsp;&nbsp;  내 플래너</a></li>
+		        </ul>
+		    </div>
+	    </div>
+	    <!-- // 마이페이지 네비바-->
+		
+		
+
+        <!-- 플래너쪽 container -->
+        <div class="planD-planbox">
+
 			
            <div class="planD-btnbox-detail">
-	         	<span class="planD-titledetail">${planner.title}</span>
+	         	<span class="planD-titledetail">
+	         		
+	         		${planner.title}
+	         	</span>
 	             <fmt:parseNumber value="${planner.getFDate().getTime() / (1000*60*60*24)}" integerOnly="true" var="first"/>
 	             <fmt:parseNumber value="${planner.getLDate().getTime() / (1000*60*60*24)}" integerOnly="true" var="last"/>
 	             <span class="planD-titledays">
@@ -269,9 +302,25 @@
                                     </div>
 
                                     <div class="planD-detailplace">
-                                        <span class="planD-detailtime__span--small"> <fmt:formatDate value="${plan.day}" pattern="a hh:mm"/></span>
-                                        <span class="planD-detailplace__span--small" title="${plan.name}">${plan.name}</span>
-                                        <span class="planD-detailinfo__span--small">${plan.intro}</span>
+                                        <span class="planD-detailtime__span--small">
+                                        	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+											  <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+											  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+											</svg>
+											<fmt:formatDate value="${plan.day}" pattern="a hh:mm"/>
+                                        </span>
+                                        <span class="planD-detailplace__span--small" title="${plan.name}">
+                                        	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+											  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+											</svg>
+                                        	${plan.name}
+                                        </span>
+                                        <span class="planD-detailinfo__span--small">
+                                        	<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chat-right-text-fill" viewBox="0 0 16 16">
+											  <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353V2zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zm0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1zm0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
+											</svg>
+                                        	${plan.intro}
+                                        </span>
                                         <div class="planD-detailimg" id="map${status.count}-${plan_status.count}" onclick="location.href='https://map.kakao.com/link/to/${plan.name},${plan.y},${plan.x}'"></div>
 
                                         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e47a393473d9bf60bc248b17b6d8a8aa"></script>
@@ -315,14 +364,17 @@
     <!-- 플래너 수정 버튼 클릭시 팝업창 -->
     <div class="planD-popupcontainer" id="popup">
 
-        <div class="planD-popbox">
+        <div class="planL-popbox">
 
             <!-- 플래너 팝업창 header 부분 -->
-            <div class="planD-popheadbox">
-                <span class="planD-popheadbox__span--big">플래너 수정하기</span>
-                <button class="planD-popheadbox__button--big" id="popdown">닫기</button>
-            </div>
-            <!-- // 플래너 팝업창 header 부분 -->
+        <div class="planL-popheadbox">
+            <span class="planL-popheadbox__span--big">
+            	<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  					<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  					<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+				</svg> 플래너 만들기 </span>
+        </div>
+        <!-- // 플래너 팝업창 header 부분 -->
 
             <!-- 플래너 팝업창 입력 부분 -->
             <div class="planD-popcontentbox">
@@ -336,17 +388,25 @@
                     <div class="planD-popdetailbox">
                         <span class="planD-popdetailbox__span--big">여행기간</span>
                         <input type="date" name="fDate" class="planD-popdetailbox__input--date" value="<fmt:formatDate value="${planner.getFDate()}" pattern="yyyy-MM-dd" />">
-                        <span class="planD-popdetailbox__span--small">~</span>
+                        <span class="planD-popdetailbox__span--small">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+  							<path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+						</svg>
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+  							<path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+						</svg>
+						</span>
                         <input type="date" name="lDate" class="planD-popdetailbox__input--date" value="<fmt:formatDate value="${planner.getLDate()}" pattern="yyyy-MM-dd" />">
                     </div>
 
                     <div class="planD-popdetailbox">
-                        <span class="planD-popdetailbox__span--big">설명</span>
+                        <span class="planD-popdetailbox__span--big">여행설명</span>
                         <input type="text" name="intro" value="${planner.intro}"  placeholder="30자 내로 입력해주세요" maxlength="30" class="planD-popdetailbox__input--gray">
                     </div>
 
                     <div class="planD-popbtnbox">
-                        <input type="submit" class="planD-popbtnbox__input--blue" value="플랜 수정하기">
+                        <input type="submit" class="planD-popbtnbox__input--blue" value="수정하기">
+                        <button class="planD-popbtnbox__button--gray" id="popdown">닫기</button>
                     </div>
 
                 </form>
@@ -357,6 +417,8 @@
     </div>
     <!-- // 플래너 수정 버튼 클릭시 팝업창 -->
     
-<%@include file="../footer.jsp" %>
+<div class="footer">
+	<%@include file="../footer.jsp" %>
+</div>
 </body>
 </html>

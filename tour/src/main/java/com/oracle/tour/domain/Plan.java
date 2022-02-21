@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /*
+ * 이진호
  * 플랜 Entity
  */
 

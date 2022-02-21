@@ -4,7 +4,7 @@
 window.onload = function(){
 	if(${result}==1){
 		alert("수정 성공!");
-		window.location.href="/";
+		window.location.href="detail?c_no=${con.c_no}&c_local=${con.c_local}";
 		
 	}else{
 		alert("수정 실패..")

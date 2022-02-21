@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /*
+ * 이진호
  * 플랜 DTO
  */
 

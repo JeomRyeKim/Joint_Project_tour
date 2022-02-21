@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /*
+ * 이진호
  * 플랜 관련 Repository
  */
 public interface LJPlanRepository extends JpaRepository<Plan, Long> {

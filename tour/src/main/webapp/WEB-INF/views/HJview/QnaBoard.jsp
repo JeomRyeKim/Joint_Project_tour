@@ -8,10 +8,8 @@
 </head>
 <body>
 <%@include file="../header1.jsp" %>
-<%@include file="./bootStrap.jsp"%>
-	<div>
-		<h2>여기 api?</h2>
-	</div>
-	<%@include file="../footer.jsp" %>
+<%@include file="../header2.jsp" %>
+<h1>고객센터</h1>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>컨텐츠 등록</title>
 <style>
 .container1 {
 	display: flex;
@@ -20,10 +20,10 @@
 <body>
 	<%@include file="../header1.jsp"%>
 	<%@include file="../header2.jsp"%>
-	<h1>컨텐츠 등록</h1>
+	<h1 style="text-align: center; padding: 50px 0;">컨텐츠 등록</h1>
 	<div class="container1">
 		<div class="form_container">
-			<form action="/uploadContent" method="post" enctype="multipart/form-data" target="myBatisFrame">
+			<form action="/uploadContent" method="post" enctype="multipart/form-data" target="_self">
 				<table>
 					<tr>
 						<td>컨텐츠 이름:</td>

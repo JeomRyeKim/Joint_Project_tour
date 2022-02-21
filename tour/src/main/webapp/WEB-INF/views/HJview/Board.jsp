@@ -8,8 +8,9 @@
 <%@include file="boot.jsp" %>
 </head>
 <body>
-<%@include file="../header1.jsp" %>
-<%@include file="../header2.jsp" %>
+<div class="header" style="position: sticky; width: 100%; z-index: 10; top: 0px; background-color: white; margin-top: -50px;">
+	<%@include file="../header1.jsp" %>
+</div>
 <div class="container mt-3 mb-3 table-bordered">
    <h2 id="board" class="mt-5 mb-3" style="color: #75CFB8"><b>게시판</b></h2>
 	<label><a class="btn btn-outline-secondary" value="a"  id="all"    onclick="location.href = '/HJBoard?&m_id=${member.m_id}'">전체</a></label>
@@ -203,9 +204,9 @@
 <tr>
 <th>
   <select name="searchType" id="searchType" type="button" class="btn btn-outline-white dropdown-toggle text-secondary" data-bs-toggle="dropdown">
-    <option value="b_title" <c:if test="${searchType=='b_title'}">selected</c:if>>제목에서</option>
-    <option value="b_contents" <c:if test="${searchType=='b_contents'}">selected</c:if>>본문에서</option>
-    <option value="m_nickname" <c:if test="${searchType=='m_nickname'}">selected</c:if>>글쓴이에서</option>
+    <option value="b_title">제목에서</option>
+    <option value="b_contents">본문에서</option>
+    <option value="m_nickname">글쓴이에서</option>
   </select>
 </th>
 <td>
@@ -231,8 +232,9 @@
 <%@include file="../footer.jsp" %>
 <script type="text/javascript">
 function SearchText(keyword){
-	var searchType = $("#searchType option:selected").val();
-	//alert("searchType->" + searchType);
+// 	var searchType = $("#searchType option:selected").val();
+	var searchType = $("select[name=searchType]").val();
+// 	alert("searchType->" + searchType);
 	var keyword = $('#keyword').val();
 	//alert("keyword->" + keyword);
 	//var b_kind = $('#b_kind').val();
@@ -245,8 +247,13 @@ function SearchText(keyword){
 		location.href = "/HJBoard?searchType=" + searchType + "&keyword=" + keyword;
 	}else if(window.location.search.includes('b_kind')) { // 유형별 검색시
 		//alert("window.location.search.includes('b_kind')->유형별 검색시");
-		location.href = "/HJBoard?b_kind=" + b_kind + "&searchType=" + searchType + "&keyword=" + keyword;
-		//$('#b_kind').val("");
+		if(window.location.search.indexOf('&searchType')!=-1){
+// 			alert("서치타입 파라미터 중복!");
+			location.href = "/HJBoard?b_kind=" + b_kind + "=" + searchType + "&keyword=" + keyword;
+		}else{
+			location.href = "/HJBoard?b_kind=" + b_kind + "&searchType=" + searchType + "&keyword=" + keyword;
+		}
+		$('#b_kind').val("");
 	}
 	
 }

@@ -57,7 +57,7 @@
 	where m_id=#{m_id}
 	</update>
 	<select id="WHCnoList" parameterType="java.lang.String" resultType="Contents_like_contents">
-	select a.c_no,a.c_title,a.c_image1,b.m_id
+	select a.c_no,a.c_title,a.c_local,a.c_image1,b.m_id
 	from contents a
 	left OUTER join contents_like b 
 	on a.c_no = b.c_no

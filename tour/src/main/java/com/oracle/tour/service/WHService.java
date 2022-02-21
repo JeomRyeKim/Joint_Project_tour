@@ -17,6 +17,6 @@ public interface WHService {
 	void memberLeave(String m_id);
 	List<Contents_like_contents> c_noList(String m_id);
 	List<Contents_like_contents> c_List(Contents_like_contents contents_likes);
-	void wishListDelete(Contents_like_contents content);
+    void wishListDelete(Contents_like_contents content);
 	
 }
