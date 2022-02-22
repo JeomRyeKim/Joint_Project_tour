@@ -299,7 +299,7 @@ public class HJController {
 		System.out.println("HJController BoardmodifyForm boardDetail.getB_title()->" + boardDetail.getB_title());
 		model.addAttribute("boardDetail", boardDetail);
 		
-		return "HJview/Boardmodify";
+		return "HJview/BoardModify";
 	}	
 	@PostMapping("HJBoardmodify")
 	public String Boardmodify(HttpServletRequest request, MultipartFile filename, RedirectAttributes rttr, Board board, Model model) throws Exception {
@@ -309,19 +309,34 @@ public class HJController {
 		System.out.println("HJController Boardmodify board.getM_id()->" + board.getM_id());
 		System.out.println("HJController Boardmodify board.getM_nickname()->" + board.getM_nickname());
 		
-		String b_filename = filename.getOriginalFilename();
-		System.out.println("HJController Boardmodify filename.getOriginalFilename()->" + b_filename);
-		
-		String beforeFilename = board.getB_filename();
+		String beforeFilename = board.getB_filename(); // 수정전에 있었던 이미지 파일 명
 		System.out.println("HJController Boardmodify 수정전에 있었던 beforeFilename->" + beforeFilename);
 		
-		// 파일 업로드
-		// 기존 사진 그대로 보내는 경우
-		if(beforeFilename != null) {
-			System.out.println("beforeFilename != null");
+		String b_filename = filename.getOriginalFilename(); // 수정하면서 추가한 이미지 파일 명
+		System.out.println("HJController Boardmodify filename.getOriginalFilename()->" + b_filename);
+		
+		// 파일 업로드 (수정 전 이미지X -> 수정 후 이미지X인 경우 파일 업로드 자체를 거치지X)
+		// 수정 전 이미지O -> 수정 후 이미지X
+		if((beforeFilename == null || beforeFilename.isEmpty()) && (b_filename == null || b_filename.isEmpty())) {
+			System.out.println("수정 전 이미지O -> 수정 후 이미지X");
+			board.setB_filename(b_filename);
+			System.out.println("HJController Boardmodify board.getB_filename()->" + board.getB_filename());
+		}// 수정 전 이미지X -> 수정 후 이미지O
+		else if((beforeFilename == null || beforeFilename.isEmpty()) && (b_filename != null || !b_filename.isEmpty())) {
+			System.out.println("수정 전 이미지X -> 수정 후 이미지O");
+			String uploadPath = request.getSession().getServletContext().getRealPath("/resources/image/board");
+			String savedName = uploadFile(filename.getOriginalFilename(), filename.getBytes(), uploadPath);
+			logger.info("savedName : " + savedName);
+			board.setB_filename(savedName);
+			System.out.println("HJController Boardmodify board.getB_lock()->" + board.getB_lock());
+		} // 수정 전 이미지O -> 수정 후 이미지O (이미지 그대로)
+		else if((beforeFilename != null || !beforeFilename.isEmpty()) && (b_filename == null || b_filename.isEmpty())) {
+			System.out.println("수정 전 이미지O -> 수정 후 이미지O (이미지 그대로)");
 			board.setB_filename(beforeFilename);
 			System.out.println("HJController Boardmodify board.getB_filename()->" + board.getB_filename());
-		}else if(b_filename != null) {
+		} // 수정 전 이미지O -> 수정 후 이미지O (이미지 바뀜)
+		else if((beforeFilename != null || !beforeFilename.isEmpty()) && (b_filename != null || !b_filename.isEmpty()) && !beforeFilename.contains(b_filename)) {
+			System.out.println("수정 전 이미지O -> 수정 후 이미지O (이미지 바뀜)");
 			String uploadPath = request.getSession().getServletContext().getRealPath("/resources/image/board");
 			String savedName = uploadFile(filename.getOriginalFilename(), filename.getBytes(), uploadPath);
 			logger.info("savedName : " + savedName);
@@ -364,7 +379,7 @@ public class HJController {
 		System.out.println("HJController boardReply_view boardDetail.getB_Group()->" + boardDetail.getB_Group());
 		model.addAttribute("boardDetail", boardDetail);
 		
-		return "HJview/boardReply";
+		return "HJview/BoardReply";
 	}
 	@RequestMapping("/HJboardReply")
 	public String boardReply(HttpServletRequest request, MultipartFile filename, Board board, Model model) throws Exception {
