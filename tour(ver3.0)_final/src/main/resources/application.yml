@@ -1,0 +1,55 @@
+# http port set
+server:
+  port: 9000
+
+
+spring:
+  # File Size
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  # Oracle Connect  
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    username: s20220103
+    password: tiger
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+
+  # ORM JPA
+  jpa:
+    hibernate:
+      ddl-auto: update # create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true 
+        
+  # gmail Transfer
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: tidnj0505@gmail.com
+    password: yungik0800!
+    properties: 
+      mail:
+        smtp:
+          auth: true # 인증여부
+          starttls.enable: true # starttls : 내부적으로 암호화해서 보냄(스내핑 예방)
+         
+  # view resolver(Template -> JSP Use)
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+
+# Mybatis
+mybatis:     
+  # dto Location
+  type-aliases-package: com.oracle.tour.dto
+  # xml Location
+  config-location: classpath:configuration.xml # 환경설정
+  mapper-locations: classpath:mappers/*.xml
+  

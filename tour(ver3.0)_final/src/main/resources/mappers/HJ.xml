@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.tour.HJMapper">
+	<!-- 해당 이용자의 정보 가져오기 -->
+	<select id="hjMemberDetail" parameterType="String" resultType="Member">
+		select * from member where m_id=#{m_id}
+	</select>
+	
+	<!-- 전체, 검색X -->
+	<select id="hjBoardTotal_n" resultType="int">
+		select count(*) from Board
+	</select>
+	<!-- 전체, 검색O -->
+	<select id="hjBoardTotal_y" resultType="int" parameterType="Board">
+		select count(*)
+        <choose>
+		 	 <when test="searchType == 'b_title'">
+		    		from Board
+		    		WHERE b_title like '%' || #{keyword} || '%'    
+		   	 </when>
+		 	 <when test="searchType == 'b_contents'">
+		    		from Board
+		    		WHERE b_contents like '%' || #{keyword} || '%'    
+		   	 </when>
+		 	 <when test="searchType == 'm_nickname'">
+		 	 		from Board b, member m
+		    		WHERE b.m_id = m.m_id 
+					and m.m_nickname like '%' || #{keyword} || '%'    
+		   	 </when>
+        </choose>
+	</select>
+	<!-- 유형별, 검색X -->
+	<select id="hjBoardKindTotal_n" resultType="int" parameterType="Board">
+		select count(*) from Board
+		<choose>
+		 	 <when test="b_kind == 1">
+		    		WHERE b_kind in (1, 4)   
+		   	 </when>
+		 	 <when test="b_kind == 2">
+		    		WHERE b_kind in (2, 4)   
+		   	 </when>
+		 	 <when test="b_kind == 3">
+		    		WHERE b_kind in (3, 4)   
+		   	 </when>
+		</choose>
+	</select>
+	<!-- 유형별, 검색O -->
+	<select id="hjBoardKindTotal_y" resultType="int" parameterType="Board">
+		select count(*)
+		<choose>
+		 	 <when test="b_kind == 1 and searchType == 'b_title'">
+		    		from Board
+		    		WHERE b_kind in (1, 4)
+		    		AND b_title like '%' || #{keyword} || '%'    
+		   	 </when>
+		 	 <when test="b_kind == 1 and searchType == 'b_contents'">
+		    		from Board
+		    		WHERE b_kind in (1, 4)
+		    		AND b_contents like '%' || #{keyword} || '%'    
+		   	 </when>
+		 	 <when test="b_kind == 1 and searchType == 'm_nickname'">
+		    		from Board b, member m
+		    		WHERE b_kind in (1, 4)
+		    		AND b.m_id = m.m_id
+		    		AND m.m_nickname like '%' || #{keyword} || '%'     
+		   	 </when>
+		   	 
+		 	 <when test="b_kind == 2 and searchType == 'b_title'">
+		    		from Board
+		    		WHERE b_kind in (2, 4)
+		    		AND b_title like '%' || #{keyword} || '%'    
+		   	 </when>
+		 	 <when test="b_kind == 2 and searchType == 'b_contents'">
+		    		from Board
+		    		WHERE b_kind in (2, 4)
+		    		AND b_contents like '%' || #{keyword} || '%'    
+		   	 </when>
+		 	 <when test="b_kind == 2 and searchType == 'm_nickname'">
+		    		from Board b, member m
+		    		WHERE b_kind in (2, 4)
+		    		AND b.m_id = m.m_id
+		    		AND m.m_nickname like '%' || #{keyword} || '%'    
+		   	 </when>
+		   	 
+		 	 <when test="b_kind == 3 and searchType == 'b_title'">
+		    		from Board
+		    		WHERE b_kind in (3, 4)
+		    		AND b_title like '%' || #{keyword} || '%'    
+		   	 </when>
+		 	 <when test="b_kind == 3 and searchType == 'b_contents'">
+		    		from Board
+		    		WHERE b_kind in (3, 4)
+		    		AND b_contents like '%' || #{keyword} || '%'    
+		   	 </when>
+		 	 <when test="b_kind == 3 and searchType == 'm_nickname'">
+		    		from Board b, member m
+		    		WHERE b_kind in (3, 4)
+		    		AND b.m_id = m.m_id
+		    		AND m.m_nickname like '%' || #{keyword} || '%'        
+		   	 </when>
+        </choose>
+	</select>
+	
+	<!-- 전체, 검색X -->	
+	<select id="hjBoardList1_old" parameterType="Board" resultType="Board">
+	  select *
+		from (
+		   	  select rownum rn, a.*
+		  	  from (select b.* , m.m_nickname, m.m_active_kind
+                    from   board b, member m 
+                    where b.m_id = m.m_id
+                    order by b_notice desc, b_group desc, b_step asc) a
+		     )
+		where rn between #{start} and #{end}
+	</select>
+	<!-- 전체, 검색O -->
+	<select id="hjBoardList1" parameterType="Board" resultType="Board">
+		  select *
+			from (
+			   	  select rownum rn, a.*
+			  	  from (select b.* , m.m_nickname, m.m_active_kind
+	                    from   board b, member m 
+	                    where b.m_id = m.m_id
+	                    <choose>
+						 	 <when test="searchType == 'b_title'">
+						    		AND b_title like '%' || #{keyword} || '%'    
+						   	 </when>
+						 	 <when test="searchType == 'b_contents'">
+						    		AND b_contents like '%' || #{keyword} || '%'    
+						   	 </when>
+						   	 <otherwise>
+						   	  	    AND m_nickname like '%' || #{keyword} || '%'   
+							 </otherwise>
+					    </choose>
+	                    order by b_notice desc, b_group desc, b_step asc) a
+			     )
+			where rn between #{start} and #{end}
+	</select>
+	<!-- 유형별, 검색X -->	
+	<select id="hjBoardList2_old" parameterType="Board" resultType="Board">
+	    select *
+		from (
+		   	  select rownum rn, a.*
+		  	  from (select b.* , m.m_nickname, m.m_active_kind
+                    from   board b, member m 
+                    where b.m_id = m.m_id
+                    and b_kind in (#{b_kind}, 4)   
+                    order by b_notice desc, b_group desc, b_step asc) a
+		     )
+		where rn between #{start} and #{end}
+	</select>
+	<!-- 유형별, 검색O -->
+	<select id="hjBoardList2" parameterType="Board" resultType="Board">
+	    select *
+		from (
+		   	  select rownum rn, a.*
+		  	  from (select b.* , m.m_nickname, m.m_active_kind
+                    from   board b, member m 
+                    where b.m_id = m.m_id
+                   	<choose>
+					 	 <when test="b_kind == 1 and searchType == 'b_title'">
+					    		AND b_kind in (1, 4)
+					    		AND b_title like '%' || #{keyword} || '%'    
+					   	 </when>
+					 	 <when test="b_kind == 1 and searchType == 'b_contents'">
+					    		AND b_kind in (1, 4)
+					    		AND b_contents like '%' || #{keyword} || '%'    
+					   	 </when>
+					 	 <when test="b_kind == 1 and searchType == 'm_nickname'">
+					    		AND b_kind in (1, 4)
+					    		AND m_nickname like '%' || #{keyword} || '%'    
+					   	 </when>
+					   	 
+					 	 <when test="b_kind == 2 and searchType == 'b_title'">
+					    		AND b_kind in (2, 4)
+					    		AND b_title like '%' || #{keyword} || '%'    
+					   	 </when>
+					 	 <when test="b_kind == 2 and searchType == 'b_contents'">
+					    		AND b_kind in (2, 4)
+					    		AND b_contents like '%' || #{keyword} || '%'    
+					   	 </when>
+					 	 <when test="b_kind == 2 and searchType == 'm_nickname'">
+					    		AND b_kind in (2, 4)
+					    		AND m_nickname like '%' || #{keyword} || '%'    
+					   	 </when>
+					   	 
+					 	 <when test="b_kind == 3 and searchType == 'b_title'">
+					    		AND b_kind in (3, 4)
+					    		AND b_title like '%' || #{keyword} || '%'    
+					   	 </when>
+					 	 <when test="b_kind == 3 and searchType == 'b_contents'">
+					    		AND b_kind in (3, 4)
+					    		AND b_contents like '%' || #{keyword} || '%'    
+					   	 </when>
+					 	 <otherwise>
+					    		AND b_kind in (3, 4)
+					    		AND m_nickname like '%' || #{keyword} || '%'    
+					   	 </otherwise>
+					</choose>
+                    order by b_notice desc, b_group desc, b_step asc) a
+		     )
+		where rn between #{start} and #{end}
+	</select>
+
+	<!-- 조회수 올리기 -->
+	<update id="hjGetHit" parameterType="Board">
+		update board set b_hit = b_hit+1 where b_kind = #{b_kind} and b_no = #{b_no}
+	</update>
+	
+	<!-- 해당 상세글 정보 가져오기 -->
+	<select id="hjBoardDetail" parameterType="Board" resultType="Board">
+		select b.*, m.m_nickname, m.m_active_kind, m_kind
+		from board b, member m
+		where b.m_id = m.m_id
+		and b.b_kind = #{b_kind}
+		and b.b_no = #{b_no}
+	</select>
+	
+	<!-- 새글 입력 -->
+	<insert id="hjBoardInsert" parameterType="Board">
+		insert into board values(#{b_kind}, b_no_seq.nextval, #{m_id}, #{b_title}, #{b_contents}, sysdate, 0,
+								 <choose>
+									<when test="b_filename != null"> #{b_filename},</when>
+								 	<otherwise> null,</otherwise>
+								 </choose>
+								 b_no_seq.currval, 0, 0, #{b_notice}, #{b_lock}, 0, 0)
+	</insert>
+	
+	<!-- 원글인지 or 삭제하는 답변글 뒤에 쓰여진 답변글이 있는지 확인 -->
+	<select id="hjBoardDelChk" parameterType="Board" resultType="Board">
+		select b_no 
+		from board
+		<choose>
+			<when test="b_Step == 0">
+			where b_Group = #{b_Group}
+			</when>
+			<otherwise>
+				where b_Group = #{b_Group}
+				and b_step BETWEEN 1 and #{b_Step}
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 해당 게시글에 댓글이 있는지 확인하기 -->
+	<select id="hjBoardCommentChk" parameterType="Board" resultType="int">
+		select count(*) from board_comment
+        where b_no = #{b_no}
+	</select>
+	<!-- 게시글에 댓글이 있다면 게시글 먼저 삭제 -->
+	<delete id="hjBoardCommentDel" parameterType="Board">
+		delete from board_comment
+        where b_no = #{b_no}
+	</delete>
+	<!--  해당 게시글에 좋아요가 있는지 확인하기-->
+	<select id="hjBoardLikeChk" parameterType="Board" resultType="int">
+		select count(*) from board_like
+        where b_no = #{b_no}
+	</select>
+	<!-- 게시글에 좋아요 흔적이 있다면 먼저 삭제 -->
+	<delete id="hjBoardLikeDel" parameterType="Board">
+		delete from board_like
+        where b_no = #{b_no}
+	</delete>
+	<!-- 게시글 삭제 -->
+	<delete id="hjBoardDelete" parameterType="Board">
+		delete from board where b_Group = #{b_Group} and b_no = #{b_no}
+	</delete>
+	
+	<!-- 좋아요 했는지 y여부 가져오기 - 좋아요 했으면 1, 아니면 0 -->
+	<select id="hjBLikeChk" parameterType="Board_like" resultType="int">
+		select count(*) 
+		from board_like 
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+		and m_id = #{m_id}
+		and b_like_check = 'y'
+	</select>
+	<!-- 좋아요 했는지 n여부 가져오기 - 좋아요 했으면 0, 아니면 1 -->
+	<select id="hjBLikeChk_n" parameterType="Board_like" resultType="int">
+		select count(*) 
+		from board_like 
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+		and m_id = #{m_id}
+		and b_like_check = 'n'
+	</select>
+	<!-- 좋아요를 처음 누를 때 b_like_check = "y"으로 insert -->
+	<insert id="hjinsert_bl" parameterType="Board_like">
+		insert into board_like values(#{b_kind}, #{b_no}, #{m_id}, 'y')
+	</insert>
+	<!-- b_like_cnt +1처리 -->
+	<update id="hjLike_b" parameterType="Board">
+		update board
+		set b_like_cnt = b_like_cnt +1
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+	</update>
+	<!-- b_like_check = "y" 수정처리 -->
+	<update id="hjUpdate_bl"  parameterType="Board_like">
+		update board_like
+		set b_like_check = 'y'
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+		and m_id = #{m_id}
+	</update>
+	<!-- b_like_check 'y' -> 'n'으로 변경 -->
+	<update id="hjDislike_bl" parameterType="Board_like">
+		update board_like
+		set b_like_check = 'n'
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+		and m_id = #{m_id}
+	</update>
+	<!-- b_like_cnt -1처리 -->
+	<update id="hjDislike_b" parameterType="Board">
+		update board
+		set b_like_cnt = b_like_cnt -1
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+	</update>
+	<!-- b_like_check - y or n 여부 -->
+	<select id="hjBLikeYN" parameterType="Board_like" resultType="java.lang.String">
+		select b_like_check 
+		from board_like 
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+		and m_id = #{m_id}
+	</select>
+	<!-- b_like_cnt 가져오기 -->
+	<select id="hjselectLikeCnt" parameterType="Board" resultType="int">
+		select b_like_cnt
+		from board
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="hjBoardmodify" parameterType="Board">
+		update board
+		set b_kind = #{b_kind}, b_title = #{b_title}, b_contents = #{b_contents}, b_date = sysdate, 
+			b_filename = #{b_filename}, b_notice = #{b_notice}, b_lock = #{b_lock}
+		where b_no = #{b_no}
+		and m_id = #{m_id}
+	</update>
+	
+	<!-- 새로 입력하는 댓글이 기존의 댓글과 b_Group =같고   &  기존의 댓글보다 b_Step >작으면  =>  b_Step + 1 -->
+	<update id="hjUpdateReply" parameterType="Board">
+		update board 
+		set b_Step = b_Step + 1 
+		where b_Group = #{b_Group} 
+		and b_Step > #{b_Step}
+	</update>
+	<!-- 답변 입력 -->
+	<insert id="hjInsertReplyChk" parameterType="Board">
+		insert into board values(#{b_kind}, b_no_seq.nextval, #{m_id}, #{b_title}, #{b_contents}, sysdate, 0,
+								 <choose>
+									<when test="b_filename != null"> #{b_filename},</when>
+								 	<otherwise> null,</otherwise>
+								 </choose>
+								 #{b_Group}, #{b_Step}, #{b_Indent}, #{b_notice}, #{b_lock}, 0, 0)
+	</insert>
+	
+	<!-- 게시글 댓글 입력 -->
+	<insert id="hjCommentInsert" parameterType="Board_comment">
+		insert into board_comment
+		values(#{b_kind}, #{b_no}, #{m_id}, bc_no_seq.nextval, #{bc_contents}, sysdate, bc_no_seq.currval, 0, 0, #{bc_lock})
+	</insert>
+	<!-- 게시글 목록 가져오기 -->
+	<select id="hjGetComList" parameterType="Board_comment" resultType="Board_comment">
+		select bc.*, m.m_nickname, m.m_kind
+		from board_comment bc, member m
+		where bc.m_id = m.m_id 
+		and bc.b_kind = #{b_kind}
+		and bc.b_no = #{b_no}
+		order by bc_Group, bc_Step
+	</select>
+	<!-- 해당 게시글 댓글 개수 가져오기 -->
+	<select id="hjCommentCnt" parameterType="Board_comment" resultType="int">
+		select count(*)
+		from board_comment
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+	</select>
+	<!-- 게시판에 댓글 개수 +1 해주기 -->
+	<update id="hjBoardComCntUpdate" parameterType="Board_comment">
+		update board
+		set b_commentCnt = b_commentCnt +1
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+	</update>
+	<!-- 댓글 수정 -->
+	<update id="hjCommentUpdate" parameterType="Board_comment">
+		update board_comment
+		set bc_contents = #{bc_contents}, bc_date = sysdate, bc_lock = #{bc_lock}
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+		and bc_no = #{bc_no}
+	</update>
+	<!-- 수정한 데이터 select -->
+	<select id="hjmodifyComList" parameterType="Board_comment" resultType="Board_comment">
+		select *
+		from board_comment 
+		where bc_no = #{bc_no}
+	</select>
+	<!-- 댓글 삭제 전에 자기보다 늦게 달린 대댓글 있는지 확인(있으면 상위 대댓글 삭제할 때 하위 대댓글들도 같이 삭제처리할 예정 -->
+	<select id="hjGetGroupCnt" parameterType="Board_comment" resultType="int">
+		select count(*) from board_comment
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+		<choose>
+			<when test="bc_Step == 0">
+			and bc_Group = #{bc_Group}
+			</when>
+			<otherwise>
+				and bc_Group = #{bc_Group}
+				and bc_Step BETWEEN 1 and #{bc_Step}
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 자기 댓글보다 늦게 달린 대댓글 O - 여러개 삭제 -->
+	<delete id="hjCommnetsDelete" parameterType="Board_comment">
+		delete from board_comment
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+		<choose>
+			<when test="bc_Step == 0">
+			and bc_Group = #{bc_Group}
+			</when>
+			<otherwise>
+				and bc_Group = #{bc_Group}
+				and bc_Step BETWEEN 1 and #{bc_Step}
+			</otherwise>
+		</choose>
+	</delete>
+	<!-- 자기 댓글보다 늦게 달린 대댓글 X - 1개 삭제 -->
+	<delete id="hjCommnetDelete" parameterType="Board_comment">
+		delete from board_comment
+		where bc_no = #{bc_no}
+	</delete>
+	<update id="hjBoardComCntDelete" parameterType="Board_comment">
+		update board
+		set b_commentCnt = b_commentCnt -#{groupCnt}
+		where b_kind = #{b_kind}
+		and b_no = #{b_no}
+	</update>
+	<!-- 새로 입력하는 댓글이 기존의 댓글과 b_Group =같고   &  기존의 댓글보다 b_Step >작으면  =>  b_Step + 1 -->
+	<update id="hjGetCommentReply" parameterType="Board_comment">
+		update board_comment
+		set bc_Step = bc_Step +1
+		where bc_Group = #{bc_Group}
+		and bc_Step > #{bc_Step}
+	</update>
+	<!-- 대댓글 입력 -->
+	<insert id="hjCommentReplyInsert" parameterType="Board_comment">
+		insert into board_comment
+		values(#{b_kind}, #{b_no}, #{m_id}, bc_no_seq.nextval, #{bc_contents}, 
+			   sysdate, #{bc_Group}, #{bc_Step}, #{bc_Indent}, #{bc_lock})
+	</insert>
+</mapper>
